@@ -30,7 +30,8 @@ export default function Hero() {
         '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(50, 50, 50);
+            model.scale.set(5000, 5000, 5000);
+            model.position.y = -1; // Ajustado para bajar el logo
             
             const goldMaterial = new THREE.MeshStandardMaterial({
                 color: 0xffd700,
@@ -86,7 +87,7 @@ export default function Hero() {
 
       if (model) {
         model.rotation.y = elapsedTime * 0.2;
-        model.position.y = Math.sin(elapsedTime * 0.7) * 0.3;
+        model.position.y = Math.sin(elapsedTime * 0.7) * 0.3 - 1;
       }
       
       camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.02;
