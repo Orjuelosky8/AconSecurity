@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRef, useEffect } from 'react';
@@ -29,7 +30,7 @@ export default function Hero() {
         '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(50, 50, 50); 
+            model.scale.set(50, 50, 50);
             
             const goldMaterial = new THREE.MeshStandardMaterial({
                 color: 0xffd700,
@@ -118,13 +119,13 @@ export default function Hero() {
       <div ref={mountRef} className="absolute top-0 left-0 w-full h-full z-0" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-[1]" />
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-shadow-lg leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-shadow-lg leading-tight">
           Protegemos tu mundo
         </h1>
-        <p className="mt-4 max-w-2xl text-lg md:text-xl text-foreground/80">
+        <p className="mt-4 max-w-xl text-md sm:text-lg md:text-xl text-foreground/80">
           Soluciones de seguridad integrales con tecnología de vanguardia para tu tranquilidad.
         </p>
-        <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg py-7 px-12 rounded-full shadow-lg shadow-accent/20 transform hover:scale-105 transition-transform duration-300">
+        <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg py-7 px-10 sm:px-12 rounded-full shadow-lg shadow-accent/20 transform hover:scale-105 transition-transform duration-300">
           <a href="#contact">Cotiza ahora</a>
         </Button>
       </div>
