@@ -29,13 +29,28 @@ export default function Hero() {
         '/models/Logo Acon 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.rotation.x = Math.PI / 2; // Rotar 90 grados en el eje X
+            model.scale.set(0.3, 0.3, 0.3); // Hice el modelo más pequeño
+            model.rotation.x = Math.PI / 2;
+            
+            // Cambié el material a un color dorado metálico
+            const goldMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffd700, // Color dorado
+                metalness: 0.9,  // Muy metálico
+                roughness: 0.3,  // Un poco de brillo
+            });
+
+            model.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    child.material = goldMaterial;
+                }
+            });
+
             scene.add(model);
         },
         undefined,
         (error) => {
             console.error(error);
-            // Fallback to placeholder if model fails to load
+            // Fallback
             const droneGeometry = new THREE.BoxGeometry(1.2, 0.2, 2.5);
             const droneMaterial = new THREE.MeshStandardMaterial({ 
               color: 0x0d9488, 
@@ -49,9 +64,9 @@ export default function Hero() {
         }
     );
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0x0d9488, 3);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
     const pointLight = new THREE.PointLight(0xffb200, 30, 100);
