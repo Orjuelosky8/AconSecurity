@@ -36,7 +36,7 @@ export default function Coverage() {
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         currentMount.appendChild(renderer.domElement);
     
-        // Placeholder for Colombia map model. A developer can replace this with a GLTFLoader.
+        // Placeholder for Colombia map model. Replace with GLTFLoader and your model in /public/models/map/colombia.glb
         const mapGeometry = new THREE.PlaneGeometry(3, 4);
         const mapMaterial = new THREE.MeshStandardMaterial({ color: 0x085f58, flatShading: true });
         const mapPlane = new THREE.Mesh(mapGeometry, mapMaterial);

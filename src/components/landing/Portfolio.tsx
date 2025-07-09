@@ -56,7 +56,7 @@ export default function Portfolio() {
     currentMount.appendChild(renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(1.8, 1.8, 1.8);
-    // Placeholder materials. A developer can replace these with textures for each service.
+    // Placeholder materials. A developer can replace these with textures for each service in /public/models/objects/
     const materials = services.map((s, i) => new THREE.MeshStandardMaterial({
         color: new THREE.Color(i % 2 === 0 ? '#0d9488' : '#1f2937'),
         roughness: 0.5, metalness: 0.5

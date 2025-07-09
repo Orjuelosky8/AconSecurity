@@ -22,7 +22,7 @@ export default function Hero() {
     renderer.setPixelRatio(window.devicePixelRatio);
     currentMount.appendChild(renderer.domElement);
     
-    // Placeholder for drone model. A developer can replace this with a GLTFLoader.
+    // Placeholder for drone model. Replace with GLTFLoader and your model in /public/models/objects/drone.glb
     const droneGeometry = new THREE.BoxGeometry(1.2, 0.2, 2.5);
     const droneMaterial = new THREE.MeshStandardMaterial({ 
       color: 0x0d9488, 
@@ -67,6 +67,7 @@ export default function Hero() {
     animate();
 
     const handleResize = () => {
+      if (!currentMount) return;
       camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -76,7 +77,9 @@ export default function Hero() {
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('mousemove', handleMouseMove);
-      currentMount.removeChild(renderer.domElement);
+      if (currentMount) {
+          currentMount.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
