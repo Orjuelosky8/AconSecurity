@@ -29,7 +29,7 @@ export default function Hero() {
         '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(0.5, 0.5, 0.5); // Aumenté la escala para que sea visible
+            model.scale.set(0.5, 0.5, 0.5); 
             
             const goldMaterial = new THREE.MeshStandardMaterial({
                 color: 0xffd700,
