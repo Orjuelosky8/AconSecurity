@@ -29,13 +29,12 @@ export default function Hero() {
         '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(0.015, 0.015, 0.015);
+            model.scale.set(0.5, 0.5, 0.5); // Aumenté la escala para que sea visible
             
-            // Cambié el material a un color dorado metálico
             const goldMaterial = new THREE.MeshStandardMaterial({
-                color: 0xffd700, // Color dorado
-                metalness: 0.9,  // Muy metálico
-                roughness: 0.3,  // Un poco de brillo
+                color: 0xffd700,
+                metalness: 0.9,
+                roughness: 0.3,
             });
 
             model.traverse((child) => {
@@ -48,8 +47,8 @@ export default function Hero() {
         },
         undefined,
         (error) => {
-            console.error(error);
-            // Fallback
+            console.error('An error happened while loading the model:', error);
+            // Fallback a un objeto visible si el modelo no carga
             const droneGeometry = new THREE.BoxGeometry(1.2, 0.2, 2.5);
             const droneMaterial = new THREE.MeshStandardMaterial({ 
               color: 0x0d9488, 
