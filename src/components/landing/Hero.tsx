@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Button } from '@/components/ui/button';
 
 export default function Hero() {
@@ -22,24 +23,38 @@ export default function Hero() {
     renderer.setPixelRatio(window.devicePixelRatio);
     currentMount.appendChild(renderer.domElement);
     
-    // Placeholder for drone model. Replace with GLTFLoader and your model in /public/models/objects/drone.glb
-    const droneGeometry = new THREE.BoxGeometry(1.2, 0.2, 2.5);
-    const droneMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0x0d9488, 
-      roughness: 0.4, 
-      metalness: 0.9,
-      emissive: 0x0d9488,
-      emissiveIntensity: 0.1
-    });
-    const drone = new THREE.Mesh(droneGeometry, droneMaterial);
-    scene.add(drone);
+    let model: THREE.Group;
+    const loader = new GLTFLoader();
+    loader.load(
+        '/models/Logo Acon 3d.glb',
+        (gltf) => {
+            model = gltf.scene;
+            model.rotation.x = Math.PI / 2; // Rotar 90 grados en el eje X
+            scene.add(model);
+        },
+        undefined,
+        (error) => {
+            console.error(error);
+            // Fallback to placeholder if model fails to load
+            const droneGeometry = new THREE.BoxGeometry(1.2, 0.2, 2.5);
+            const droneMaterial = new THREE.MeshStandardMaterial({ 
+              color: 0x0d9488, 
+              roughness: 0.4, 
+              metalness: 0.9,
+              emissive: 0x0d9488,
+              emissiveIntensity: 0.1
+            });
+            const drone = new THREE.Mesh(droneGeometry, droneMaterial);
+            scene.add(drone);
+        }
+    );
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0x0d9488, 2);
+    const directionalLight = new THREE.DirectionalLight(0x0d9488, 3);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
-    const pointLight = new THREE.PointLight(0xffb200, 20, 100);
+    const pointLight = new THREE.PointLight(0xffb200, 30, 100);
     pointLight.position.set(-5, -2, 3);
     scene.add(pointLight);
 
@@ -55,8 +70,10 @@ export default function Hero() {
       requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      drone.rotation.y = elapsedTime * 0.2;
-      drone.position.y = Math.sin(elapsedTime * 0.7) * 0.3;
+      if (model) {
+        model.rotation.y = elapsedTime * 0.2;
+        model.position.y = Math.sin(elapsedTime * 0.7) * 0.3;
+      }
       
       camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.02;
       camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.02;
