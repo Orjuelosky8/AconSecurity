@@ -29,8 +29,7 @@ export default function Hero() {
         '/models/Logo Acon 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(0.05, 0.05, 0.05); // Hice el modelo más pequeño
-            model.rotation.x = Math.PI / 2;
+            model.scale.set(0.015, 0.015, 0.015);
             
             // Cambié el material a un color dorado metálico
             const goldMaterial = new THREE.MeshStandardMaterial({
