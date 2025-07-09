@@ -30,7 +30,7 @@ export default function Hero() {
         '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
-            model.scale.set(500, 500, 500);
+            model.scale.set(50, 50, 50);
             model.position.y = -1; // Ajustado para bajar el logo
             
             const goldMaterial = new THREE.MeshStandardMaterial({
