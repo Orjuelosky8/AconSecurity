@@ -26,7 +26,7 @@ export default function Hero() {
     let model: THREE.Group;
     const loader = new GLTFLoader();
     loader.load(
-        '/models/Logo Acon 3d.glb',
+        '/models/Acon Security 3d.glb',
         (gltf) => {
             model = gltf.scene;
             model.scale.set(0.015, 0.015, 0.015);
