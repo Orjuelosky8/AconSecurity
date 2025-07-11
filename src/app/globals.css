@@ -89,3 +89,9 @@ body {
     text-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   }
 }
+
+@layer utilities {
+  .animate-scroll-x {
+    animation: scroll-x 40s linear infinite;
+  }
+}
