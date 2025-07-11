@@ -1,5 +1,6 @@
 import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
+import ClientLogos from '@/components/landing/ClientLogos';
 import AboutUs from '@/components/landing/AboutUs';
 import Portfolio from '@/components/landing/Portfolio';
 import Coverage from '@/components/landing/Coverage';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <ClientLogos />
         <AboutUs />
         <Portfolio />
         <Coverage />
