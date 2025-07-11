@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState, useEffect, useRef } from 'react';
@@ -48,13 +49,13 @@ export default function Contact() {
     <section id="contact" className="py-20 sm:py-32 bg-background">
       <div className="container mx-auto px-4 max-w-2xl">
         <Card className="border-accent/30 bg-card shadow-2xl shadow-accent/5">
-          <CardHeader className="text-center p-8">
-            <CardTitle className="text-4xl font-bold tracking-tight text-accent">Agenda tu demo 3D</CardTitle>
-            <CardDescription className="text-lg text-muted-foreground pt-2">
+          <CardHeader className="text-center p-6 sm:p-8">
+            <CardTitle className="text-3xl sm:text-4xl font-bold tracking-tight text-accent">Agenda tu demo 3D</CardTitle>
+            <CardDescription className="text-md sm:text-lg text-muted-foreground pt-2">
               Descubre cómo nuestra tecnología puede proteger tus activos. Un experto te contactará.
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-8 pt-0">
+          <CardContent className="p-6 sm:p-8 pt-0">
             <form ref={formRef} action={dispatch} className="space-y-6">
               <div>
                 <Label htmlFor="name" className="text-base">Nombre Completo</Label>

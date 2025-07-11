@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRef, useEffect, useState } from 'react';
@@ -89,7 +90,9 @@ export default function Portfolio() {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      currentMount.removeChild(renderer.domElement);
+      if(currentMount) {
+        currentMount.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
@@ -103,8 +106,8 @@ export default function Portfolio() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="min-h-[350px] md:min-h-[450px]" ref={mountRef} />
-          <div className="flex flex-col gap-4">
+          <div className="min-h-[300px] md:min-h-[450px] md:order-last" ref={mountRef} />
+          <div className="flex flex-col gap-4 md:order-first">
             <Card className="bg-card border-accent/20 shadow-lg min-h-[180px]">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-accent">
@@ -122,7 +125,7 @@ export default function Portfolio() {
                         key={service.title}
                         variant={activeService.title === service.title ? "default" : "secondary"}
                         onClick={() => setActiveService(services[index])}
-                        className="flex items-center justify-start gap-2 text-left h-12"
+                        className="flex items-center justify-start gap-2 text-left h-12 text-xs sm:text-sm"
                     >
                         <service.icon className="h-4 w-4 flex-shrink-0" />
                         <span>{service.title}</span>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRef, useEffect, useState } from 'react';
@@ -93,7 +94,7 @@ export default function Coverage() {
             Estamos donde nos necesitas. Conoce nuestras sedes y contáctanos.
           </p>
         </div>
-        <div className="grid lg:grid-cols-3 gap-8 items-center">
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
             <div className="lg:col-span-2 min-h-[400px] md:min-h-[500px] rounded-lg border bg-background p-2" ref={mountRef}/>
             <div className="flex flex-col gap-4">
                 <Card className="bg-background border-accent/20 shadow-lg">

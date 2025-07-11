@@ -120,10 +120,10 @@ export default function Hero() {
       <div ref={mountRef} className="absolute top-0 left-0 w-full h-full z-0" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-[1]" />
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-shadow-lg leading-tight">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-shadow-lg leading-tight">
           Protegemos tu mundo
         </h1>
-        <p className="mt-4 max-w-xl text-md sm:text-lg md:text-xl text-foreground/80">
+        <p className="mt-4 max-w-xl text-lg sm:text-xl md:text-xl text-foreground/80">
           Soluciones de seguridad integrales con tecnología de vanguardia para tu tranquilidad.
         </p>
         <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg py-7 px-10 sm:px-12 rounded-full shadow-lg shadow-accent/20 transform hover:scale-105 transition-transform duration-300">
