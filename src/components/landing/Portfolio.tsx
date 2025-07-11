@@ -106,7 +106,7 @@ export default function Portfolio() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col gap-4 order-first">
+          <div className="flex flex-col gap-4 md:order-first">
             <Card className="bg-card border-accent/20 shadow-lg min-h-[180px]">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-accent">
@@ -132,7 +132,7 @@ export default function Portfolio() {
                 ))}
             </div>
           </div>
-          <div className="min-h-[300px] md:min-h-[450px] order-last" ref={mountRef} />
+          <div className="min-h-[300px] md:min-h-[450px]" ref={mountRef} />
         </div>
       </div>
     </section>
