@@ -17,7 +17,7 @@ export default function Hero() {
     if (currentMount.children.length > 0) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x111111, 0.1);
+    scene.fog = new THREE.FogExp2(0x000000, 0.1);
 
     const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
     camera.position.z = 5;
@@ -85,6 +85,7 @@ export default function Hero() {
 
     const clock = new THREE.Clock();
     const animate = () => {
+      if (!renderer) return; // Prevent animation if renderer is gone
       requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
@@ -102,7 +103,7 @@ export default function Hero() {
     animate();
 
     const handleResize = () => {
-      if (!currentMount) return;
+      if (!currentMount || !renderer) return;
       camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -112,17 +113,14 @@ export default function Hero() {
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('mousemove', handleMouseMove);
-      if (currentMount) {
-          // Asegurarse de que el DOM element existe antes de intentar removerlo.
-          if(renderer.domElement.parentElement === currentMount) {
-            currentMount.removeChild(renderer.domElement);
-          }
+      if (currentMount && renderer.domElement.parentElement === currentMount) {
+        currentMount.removeChild(renderer.domElement);
       }
     };
   }, []);
 
   return (
-    <section id="home" className="relative h-[100dvh] w-full overflow-hidden">
+    <section id="home" className="relative h-[100dvh] w-full overflow-hidden bg-black">
       <div ref={mountRef} className="absolute top-0 left-0 w-full h-full z-0" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-[1]" />
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
