@@ -2,18 +2,24 @@
 "use client";
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Camera, ShieldAlert, Fingerprint, FireExtinguisher, UserSquare2, Bot } from 'lucide-react';
-import ModelViewer from '@/components/ModelViewer';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const ModelViewer = dynamic(() => import('@/components/ModelViewer'), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full h-full" />,
+});
 
 const services = [
   {
     icon: Bot,
     title: 'Vigilancia con Drones',
     description: 'Cobertura de grandes áreas y supervisión remota con nuestra flota de drones de última generación.',
-    modelUrl: '/models/services/drone.glb', // Example path
-    iosModelUrl: '', // Optional: for different iOS model
+    modelUrl: '/models/services/drone.glb',
+    iosModelUrl: '',
   },
   {
     icon: Camera,
@@ -66,17 +72,8 @@ export default function Portfolio() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* 3D Model Viewer - Placed first for mobile flow */}
-          <div className="md:order-last min-h-[350px] sm:min-h-[450px] w-full aspect-square md:aspect-auto rounded-lg bg-card border flex items-center justify-center p-2 shadow-inner">
-            <ModelViewer
-              src={activeService.modelUrl}
-              iosSrc={activeService.iosModelUrl}
-              alt={activeService.title}
-            />
-          </div>
-
           {/* Service Details and Buttons */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:order-last">
             <Card className="bg-card border-accent/20 shadow-lg min-h-[160px]">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-accent">
@@ -101,6 +98,15 @@ export default function Portfolio() {
                     </Button>
                 ))}
             </div>
+          </div>
+
+           {/* 3D Model Viewer - Placed first for mobile flow */}
+          <div className="min-h-[350px] sm:min-h-[450px] w-full aspect-square md:aspect-auto rounded-lg bg-card border flex items-center justify-center p-2 shadow-inner">
+            <ModelViewer
+              src={activeService.modelUrl}
+              iosSrc={activeService.iosModelUrl}
+              alt={activeService.title}
+            />
           </div>
         </div>
       </div>

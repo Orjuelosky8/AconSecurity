@@ -1,8 +1,9 @@
 
 "use client";
 
-import "@google/model-viewer";
+import { useEffect } from "react";
 
+// This type definition needs to be at the top level
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -18,6 +19,11 @@ interface ModelViewerProps {
 }
 
 const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
+  useEffect(() => {
+    // Import the model-viewer library only on the client-side
+    import("@google/model-viewer");
+  }, []);
+
   return (
     <model-viewer
       src={src}
@@ -35,4 +41,3 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
 };
 
 export default ModelViewer;
-
