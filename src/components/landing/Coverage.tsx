@@ -95,8 +95,8 @@ export default function Coverage() {
           </p>
         </div>
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-            <div className="lg:col-span-2 min-h-[400px] md:min-h-[500px] rounded-lg border bg-background p-2" ref={mountRef}/>
-            <div className="flex flex-col gap-4">
+            <div className="lg:col-span-2 min-h-[400px] md:min-h-[500px] rounded-lg border bg-background p-2 order-last lg:order-last" ref={mountRef}/>
+            <div className="flex flex-col gap-4 order-first lg:order-first">
                 <Card className="bg-background border-accent/20 shadow-lg">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-accent">
