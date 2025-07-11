@@ -2,6 +2,7 @@ import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
 import ClientLogos from '@/components/landing/ClientLogos';
 import AboutUs from '@/components/landing/AboutUs';
+import Certifications from '@/components/landing/Certifications';
 import Portfolio from '@/components/landing/Portfolio';
 import Coverage from '@/components/landing/Coverage';
 import TechSlider from '@/components/landing/TechSlider';
@@ -17,6 +18,7 @@ export default function HomePage() {
         <Hero />
         <ClientLogos />
         <AboutUs />
+        <Certifications />
         <Portfolio />
         <Coverage />
         <TechSlider />
