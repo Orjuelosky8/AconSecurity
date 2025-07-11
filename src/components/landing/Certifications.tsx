@@ -47,7 +47,7 @@ export default function Certifications() {
 
 
   return (
-    <section id="certifications" ref={sectionRef} className="py-20 sm:py-24 bg-background">
+    <section id="certifications" ref={sectionRef} className="py-20 sm:py-24 bg-background overflow-hidden">
        <div className="container mx-auto px-4">
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestras Certificaciones</h2>
@@ -56,18 +56,19 @@ export default function Certifications() {
           </p>
         </div>
       </div>
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full">
         <div className="flex animate-scroll-x">
           {duplicatedCerts.map((cert, index) => (
-            <div key={index} className="flex-shrink-0 mx-8 flex flex-col items-center justify-center">
-                <Image
-                  src={cert.logoUrl}
-                  alt={`Logo de ${cert.name}`}
-                  width={150}
-                  height={100}
-                  className="object-contain"
-                  data-ai-hint={cert.dataAiHint}
-                />
+            <div key={index} className="flex-shrink-0 mx-8 flex flex-col items-center justify-center h-24">
+                <div className="relative h-full w-auto aspect-video">
+                  <Image
+                    src={cert.logoUrl}
+                    alt={`Logo de ${cert.name}`}
+                    fill
+                    className="object-contain"
+                    data-ai-hint={cert.dataAiHint}
+                  />
+                </div>
             </div>
           ))}
         </div>
