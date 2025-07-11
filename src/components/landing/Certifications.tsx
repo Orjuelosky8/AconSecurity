@@ -1,6 +1,11 @@
 "use client";
 
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const certifications = [
   { name: 'Certificación ISO 9001', logoUrl: 'https://placehold.co/180x120.png', dataAiHint: 'certificate badge' },
@@ -16,8 +21,41 @@ const certifications = [
 const duplicatedCerts = [...certifications, ...certifications, ...certifications, ...certifications];
 
 export default function Certifications() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (titleRef.current) {
+        gsap.from(titleRef.current.children, {
+          autoAlpha: 0,
+          y: 50,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+
   return (
-    <section id="certifications" className="py-12 sm:py-16 bg-background">
+    <section id="certifications" ref={sectionRef} className="py-20 sm:py-24 bg-background">
+       <div className="container mx-auto px-4">
+        <div ref={titleRef} className="text-center mb-16">
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestras Certificaciones</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+            Comprometidos con los más altos estándares de calidad y seguridad.
+          </p>
+        </div>
+      </div>
       <div className="relative w-full overflow-hidden">
         <div className="flex animate-scroll-x">
           {duplicatedCerts.map((cert, index) => (
