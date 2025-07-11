@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -17,7 +18,15 @@ const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
 
 export default function ClientLogos() {
   return (
-    <section id="clients" className="py-12 sm:py-16 bg-muted/30">
+    <section id="clients" className="py-12 sm:py-20 bg-muted/30">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestros Protegidos</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+            Confían en nuestra tecnología y servicio para su seguridad.
+          </p>
+        </div>
+      </div>
       <div className="relative w-full overflow-hidden">
         <div className="flex animate-scroll-x">
           {duplicatedClients.map((client, index) => (
