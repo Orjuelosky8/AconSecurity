@@ -13,6 +13,9 @@ export default function Hero() {
     if (typeof window === 'undefined' || !mountRef.current) return;
     const currentMount = mountRef.current;
 
+    // Evitar añadir múltiples renderizadores si el efecto se ejecuta de nuevo
+    if (currentMount.children.length > 0) return;
+
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x111111, 0.1);
 
@@ -110,7 +113,10 @@ export default function Hero() {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('mousemove', handleMouseMove);
       if (currentMount) {
-          currentMount.removeChild(renderer.domElement);
+          // Asegurarse de que el DOM element existe antes de intentar removerlo.
+          if(renderer.domElement.parentElement === currentMount) {
+            currentMount.removeChild(renderer.domElement);
+          }
       }
     };
   }, []);
