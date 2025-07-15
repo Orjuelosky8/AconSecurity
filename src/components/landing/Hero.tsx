@@ -41,7 +41,7 @@ const slides = [
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-[85vh] w-full text-white">
+    <section id="home" className="relative h-full w-full text-white">
       <Carousel 
         className="w-full h-full"
         opts={{ loop: true }}
@@ -59,8 +59,8 @@ export default function Hero() {
                   data-ai-hint={slide.dataAiHint}
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
-                <div className="absolute inset-0 flex items-center">
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
+                <div className="absolute inset-0 flex items-center z-10">
                   <div className="container mx-auto px-4">
                     <div className="max-w-md text-left">
                       <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-shadow-lg leading-tight">
@@ -79,8 +79,8 @@ export default function Hero() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 text-white hidden md:flex" />
-        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 text-white hidden md:flex" />
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 text-white hidden md:flex z-10" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 text-white hidden md:flex z-10" />
       </Carousel>
     </section>
   );

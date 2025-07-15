@@ -5,17 +5,16 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Building, Home, Calendar, ShieldCheck, Cpu, DraftingCompass, Search, UserCheck, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
 
 const solutionSchema = z.object({
-  solutionType: z.string({ required_error: "Selecciona una solución." }).min(1),
-  entityType: z.string({ required_error: "Selecciona un tipo." }).min(1),
-  situation: z.string({ required_error: "Selecciona tu situación." }).min(1),
+  solutionType: z.string({ required_error: "Selecciona una solución." }).min(1, "Debes seleccionar una opción."),
+  entityType: z.string({ required_error: "Selecciona un tipo." }).min(1, "Debes seleccionar una opción."),
+  situation: z.string({ required_error: "Selecciona tu situación." }).min(1, "Debes seleccionar una opción."),
 });
 
 type FormData = z.infer<typeof solutionSchema>;
@@ -62,7 +61,7 @@ export default function SolutionForm() {
 
   return (
     <section id="assistant-form" className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl z-10 px-4">
-      <Card className="border-accent/30 bg-card shadow-2xl shadow-accent/10 rounded-2xl">
+      <Card className="border-accent/30 bg-card shadow-2xl shadow-accent/10 rounded-2xl z-20 relative">
         <CardHeader className="text-center p-6 sm:p-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-accent">Encuentra tu Solución de Seguridad Ideal</h2>
           <p className="text-md sm:text-lg text-muted-foreground pt-2 max-w-2xl mx-auto">
@@ -72,7 +71,6 @@ export default function SolutionForm() {
         <CardContent className="p-6 sm:p-8 pt-0">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-              {/* Step 1 */}
               <Controller
                 name="solutionType"
                 control={control}
@@ -99,7 +97,6 @@ export default function SolutionForm() {
                   </div>
                 )}
               />
-              {/* Step 2 */}
               <Controller
                 name="entityType"
                 control={control}
@@ -126,7 +123,6 @@ export default function SolutionForm() {
                   </div>
                 )}
               />
-              {/* Step 3 */}
               <Controller
                 name="situation"
                 control={control}
