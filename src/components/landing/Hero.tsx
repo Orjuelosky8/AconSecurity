@@ -41,7 +41,7 @@ const slides = [
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-[80dvh] w-full text-white">
+    <section id="home" className="relative h-[85vh] w-full text-white">
       <Carousel 
         className="w-full h-full"
         opts={{ loop: true }}

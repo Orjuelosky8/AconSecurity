@@ -1,3 +1,4 @@
+
 "use client";
 
 import Header from '@/components/landing/Header';
@@ -17,8 +18,10 @@ export default function HomePage() {
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       <Header />
       <main className="flex-1">
-        <Hero />
-        <SolutionForm />
+        <div className="relative">
+          <Hero />
+          <SolutionForm />
+        </div>
         <ClientLogos />
         <AboutUs />
         <Certifications />
