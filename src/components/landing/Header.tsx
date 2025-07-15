@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { AconShieldLogo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, MessageSquareHeart } from 'lucide-react';
 import Link from 'next/link';
 
 const navItems = [
@@ -40,8 +40,11 @@ export default function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
-            <Link href="/chat">Asistente Virtual</Link>
+          <Button asChild className="rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
+            <Link href="/chat">
+              <MessageSquareHeart className="mr-2 h-5 w-5" />
+              Asistente Virtual
+            </Link>
           </Button>
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
