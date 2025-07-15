@@ -16,6 +16,7 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <ChatbotAssistant />
         <ClientLogos />
         <AboutUs />
         <Certifications />
@@ -23,7 +24,6 @@ export default function HomePage() {
         <Coverage />
         <TechSlider />
         <SocialResponsibility />
-        <ChatbotAssistant />
       </main>
       <Footer />
     </div>
