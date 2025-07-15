@@ -10,115 +10,117 @@ export default function Hero() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !mountRef.current) return;
+    if (!mountRef.current) return;
+
     const currentMount = mountRef.current;
-    
-    let renderer: THREE.WebGLRenderer | null = null;
+    let frameId: number;
 
-    const init = () => {
-      if (!currentMount) return;
+    // Scene
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.1);
 
-      const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x000000, 0.1);
+    // Camera
+    const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-      const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-      camera.position.z = 5;
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    currentMount.appendChild(renderer.domElement);
 
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      currentMount.appendChild(renderer.domElement);
-      
-      let model: THREE.Group;
-      const loader = new GLTFLoader();
-      loader.load(
-          '/models/Acon Security 3d.glb',
-          (gltf) => {
-              model = gltf.scene;
-              model.scale.set(50, 50, 50);
-              model.position.y = -1; 
-              
-              const goldMaterial = new THREE.MeshStandardMaterial({
-                  color: 0xffd700,
-                  metalness: 0.9,
-                  roughness: 0.3,
-              });
+    // Model
+    let model: THREE.Group;
+    const loader = new GLTFLoader();
+    loader.load(
+        '/models/Acon Security 3d.glb',
+        (gltf) => {
+            model = gltf.scene;
+            model.scale.set(50, 50, 50);
+            model.position.y = -1;
+            
+            const goldMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffd700, // Gold color
+                metalness: 0.9,
+                roughness: 0.3,
+            });
 
-              model.traverse((child) => {
-                  if (child instanceof THREE.Mesh) {
-                      child.material = goldMaterial;
-                  }
-              });
+            model.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    child.material = goldMaterial;
+                }
+            });
 
-              scene.add(model);
-          },
-          undefined,
-          (error) => {
-              console.error('An error happened while loading the model:', error);
-              // Fallback a un objeto visible si el modelo no carga
-              const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1);
-              const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-              const fallbackCube = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
-              scene.add(fallbackCube);
-          }
-      );
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-      directionalLight.position.set(5, 5, 5);
-      scene.add(directionalLight);
-      const pointLight = new THREE.PointLight(0xffb200, 30, 100);
-      pointLight.position.set(-5, -2, 3);
-      scene.add(pointLight);
-
-      let mouseX = 0, mouseY = 0;
-      const handleMouseMove = (event: MouseEvent) => {
-          mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-          mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-      }
-      document.addEventListener('mousemove', handleMouseMove);
-
-      const clock = new THREE.Clock();
-      const animate = () => {
-        if (!renderer) return; 
-        requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
-
-        if (model) {
-          model.rotation.y = elapsedTime * 0.2;
-          model.position.y = Math.sin(elapsedTime * 0.7) * 0.3 - 1;
+            scene.add(model);
+        },
+        undefined,
+        (error) => {
+            console.error('An error happened while loading the model:', error);
+            // Fallback to a visible object if the model fails to load
+            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1);
+            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+            const fallbackCube = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
+            scene.add(fallbackCube);
         }
-        
-        camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.02;
-        camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.02;
-        camera.lookAt(scene.position);
+    );
 
-        renderer.render(scene, camera);
-      };
-      animate();
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(5, 5, 5);
+    scene.add(directionalLight);
+    const pointLight = new THREE.PointLight(0xffb200, 30, 100);
+    pointLight.position.set(-5, -2, 3);
+    scene.add(pointLight);
 
-      const handleResize = () => {
-        if (!currentMount || !renderer) return;
+    // Mouse movement
+    let mouseX = 0, mouseY = 0;
+    const handleMouseMove = (event: MouseEvent) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    document.addEventListener('mousemove', handleMouseMove);
+
+    // Animation loop
+    const clock = new THREE.Clock();
+    const animate = () => {
+      frameId = requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      if (model) {
+        model.rotation.y = elapsedTime * 0.2;
+        model.position.y = Math.sin(elapsedTime * 0.7) * 0.3 - 1;
+      }
+      
+      // Animate camera
+      camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.02;
+      camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.02;
+      camera.lookAt(scene.position);
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+        if (!currentMount) return;
         camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-      };
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        document.removeEventListener('mousemove', handleMouseMove);
-        if (renderer && currentMount && renderer.domElement.parentElement === currentMount) {
-            currentMount.removeChild(renderer.domElement);
-        }
-        renderer = null;
-      };
     };
+    window.addEventListener('resize', handleResize);
 
-    const cleanup = init();
-
-    return cleanup;
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(frameId);
+      if (currentMount) {
+        currentMount.removeChild(renderer.domElement);
+      }
+      // You might want to dispose of geometries, materials, textures
+    };
   }, []);
 
   return (
