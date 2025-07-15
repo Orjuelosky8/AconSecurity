@@ -5,35 +5,24 @@ import { AconShieldLogo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 const navItems = [
-  { name: 'Sobre nosotros', href: '#about' },
-  { name: 'Servicios', href: '#services' },
-  { name: 'Cobertura', href: '#coverage' },
-  { name: 'Tecnología', href: '#tech' },
-  { name: 'Social', href: '#social' },
+  { name: 'Sobre nosotros', href: '/#about' },
+  { name: 'Servicios', href: '/#services' },
+  { name: 'Cobertura', href: '/#coverage' },
+  { name: 'Tecnología', href: '/#tech' },
+  { name: 'Social', href: '/#social' },
 ];
 
-interface HeaderProps {
-  onOpenChatbot: () => void;
-}
-
-export default function Header({ onOpenChatbot }: HeaderProps) {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleOpenChatbotClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-    e.preventDefault();
-    onOpenChatbot();
-    if(isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
-          <a href="#home" className="mr-6 flex items-center space-x-2">
+          <a href="/#home" className="mr-6 flex items-center space-x-2">
             <AconShieldLogo className="h-7 w-auto" />
           </a>
         </div>
@@ -51,8 +40,8 @@ export default function Header({ onOpenChatbot }: HeaderProps) {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button onClick={handleOpenChatbotClick} className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
-            Asistente Virtual
+          <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
+            <Link href="/chat">Asistente Virtual</Link>
           </Button>
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -81,8 +70,8 @@ export default function Header({ onOpenChatbot }: HeaderProps) {
                     {item.name}
                   </a>
                 ))}
-                <Button asChild className="w-full mt-4" onClick={handleOpenChatbotClick}>
-                  <a>Asistente Virtual</a>
+                <Button asChild className="w-full mt-4">
+                  <Link href="/chat" onClick={() => setIsMenuOpen(false)}>Asistente Virtual</Link>
                 </Button>
               </nav>
             </SheetContent>

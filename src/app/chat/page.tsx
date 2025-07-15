@@ -1,0 +1,17 @@
+import Chatbot from "@/components/landing/Chatbot";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
+
+export default function ChatPage() {
+  return (
+    <div className="flex flex-col min-h-dvh bg-background text-foreground">
+      <Header />
+      <main className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-2xl h-[80dvh]">
+          <Chatbot />
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}

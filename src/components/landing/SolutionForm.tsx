@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
-import type { SolutionAssistantInput } from '@/ai/flows/solution-assistant-flow';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const solutionSchema = z.object({
   solutionType: z.string({ required_error: "Por favor, selecciona una solución." }).min(1, "Por favor, selecciona una solución."),
@@ -17,12 +17,9 @@ const solutionSchema = z.object({
   situation: z.string({ required_error: "Por favor, selecciona tu situación." }).min(1, "Por favor, selecciona tu situación."),
 });
 
-interface SolutionFormProps {
-    onFormSubmit: (data: SolutionAssistantInput) => void;
-}
-
-export default function SolutionForm({ onFormSubmit }: SolutionFormProps) {
+export default function SolutionForm() {
   const [isPending, startTransition] = React.useTransition();
+  const router = useRouter();
   
   const form = useForm<z.infer<typeof solutionSchema>>({
     resolver: zodResolver(solutionSchema),
@@ -35,7 +32,8 @@ export default function SolutionForm({ onFormSubmit }: SolutionFormProps) {
 
   const onSubmit = (data: z.infer<typeof solutionSchema>) => {
     startTransition(() => {
-        onFormSubmit(data);
+        const params = new URLSearchParams(data);
+        router.push(`/chat?${params.toString()}`);
     });
   };
 
