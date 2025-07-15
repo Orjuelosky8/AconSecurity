@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -15,8 +14,20 @@ const navItems = [
   { name: 'Social', href: '#social' },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  onOpenChatbot: () => void;
+}
+
+export default function Header({ onOpenChatbot }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleOpenChatbotClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    e.preventDefault();
+    onOpenChatbot();
+    if(isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -27,7 +38,6 @@ export default function Header() {
           </a>
         </div>
         
-        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 text-sm md:flex">
           {navItems.map((item) => (
             <a
@@ -41,11 +51,10 @@ export default function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
-            <a href="#assistant">Asistente Virtual</a>
+          <Button onClick={handleOpenChatbotClick} className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
+            Asistente Virtual
           </Button>
 
-          {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" className="md:hidden">
@@ -72,8 +81,8 @@ export default function Header() {
                     {item.name}
                   </a>
                 ))}
-                <Button asChild className="w-full mt-4" onClick={() => setIsMenuOpen(false)}>
-                  <a href="#assistant">Asistente Virtual</a>
+                <Button asChild className="w-full mt-4" onClick={handleOpenChatbotClick}>
+                  <a>Asistente Virtual</a>
                 </Button>
               </nav>
             </SheetContent>
