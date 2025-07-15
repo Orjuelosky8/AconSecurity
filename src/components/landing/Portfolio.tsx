@@ -1,113 +1,91 @@
 
 "use client";
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Camera, ShieldAlert, Fingerprint, FireExtinguisher, UserSquare2, Bot } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
-
-const ModelViewer = dynamic(() => import('@/components/ModelViewer'), {
-  ssr: false,
-  loading: () => <Skeleton className="w-full h-full" />,
-});
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const services = [
   {
-    icon: Bot,
-    title: 'Vigilancia con Drones',
-    description: 'Cobertura de grandes áreas y supervisión remota con nuestra flota de drones de última generación.',
-    modelUrl: '/models/services/drone.glb',
-    iosModelUrl: '',
+    title: 'Protegemos tu hogar con la mejor tecnología',
+    description: 'Soluciones integrales para mantener tu casa segura y conectada, desde alarmas inteligentes hasta CCTV.',
+    image: 'https://placehold.co/600x800.png',
+    dataAiHint: 'family home security',
+    link: '#',
+    className: 'lg:row-span-2',
   },
   {
-    icon: Camera,
-    title: 'CCTV con IA',
-    description: 'Sistemas de videovigilancia inteligentes que detectan amenazas en tiempo real.',
-    modelUrl: '/models/services/cctv.glb',
-    iosModelUrl: '',
+    title: 'Te protegemos en todo momento',
+    description: 'Servicios de acompañamiento y respuesta inmediata para que te sientas seguro dondequiera que estés.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'nightlife security',
+    link: '#',
   },
   {
-    icon: ShieldAlert,
-    title: 'Sistemas de Intrusión',
-    description: 'Alarmas y sensores perimetrales para una protección proactiva de tus instalaciones.',
-    modelUrl: '/models/services/alarm.glb',
-    iosModelUrl: '',
+    title: 'Te cuidamos incluso fuera de tu hogar',
+    description: 'Con nuestro botón SOS y la app Acon Shield, la ayuda está a un solo toque de distancia.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'personal safety app',
+    link: '#',
   },
   {
-    icon: Fingerprint,
-    title: 'Control de Acceso RFID',
-    description: 'Gestión de acceso segura y eficiente mediante tecnología de identificación por radiofrecuencia.',
-    modelUrl: '/models/services/rfid.glb',
-    iosModelUrl: '',
+    title: 'Rapidez ante una intrusión',
+    description: 'Nuestro equipo de motorizados garantiza la llegada más rápida ante cualquier emergencia.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'emergency response motorcycle',
+    link: '#',
   },
   {
-    icon: FireExtinguisher,
-    title: 'Detección de Incendios',
-    description: 'Sistemas avanzados para la detección temprana y notificación de incendios.',
-    modelUrl: '/models/services/fire_detector.glb',
-    iosModelUrl: '',
-  },
-  {
-    icon: UserSquare2,
-    title: 'Guardas de Seguridad',
-    description: 'Personal de seguridad altamente capacitado para proteger tus instalaciones.',
-    modelUrl: '/models/services/security_guard.glb',
-    iosModelUrl: '',
+    title: 'Expertos y profesionales en seguridad',
+    description: 'Monitoreo 24/7 desde nuestro centro de control con personal altamente capacitado y tecnología de punta.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'security control room',
+    link: '#',
   },
 ];
 
 export default function Portfolio() {
-  const [activeService, setActiveService] = useState(services[0]);
-
   return (
-    <section id="services" className="py-20 sm:py-32 bg-background">
+    <section id="services" className="py-20 sm:py-32 bg-card">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-primary">Portafolio de Servicios</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Soluciones para cada necesidad</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Soluciones 360° para cada necesidad de seguridad. Interactúa para conocer más.
+            Descubre cómo nuestra tecnología y equipo humano trabajan para tu tranquilidad.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Service Details and Buttons */}
-          <div className="flex flex-col gap-6 md:order-last">
-            <Card className="bg-card border-accent/20 shadow-lg min-h-[160px]">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-accent">
-                        <activeService.icon className="h-7 w-7 sm:h-8 sm:w-8" />
-                        <span className="text-xl sm:text-2xl">{activeService.title}</span>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-base sm:text-lg text-muted-foreground">{activeService.description}</p>
-                </CardContent>
-            </Card>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {services.map((service) => (
-                    <Button 
-                        key={service.title}
-                        variant={activeService.title === service.title ? "default" : "secondary"}
-                        onClick={() => setActiveService(service)}
-                        className="flex items-center justify-start gap-2 text-left h-12 text-xs sm:text-sm"
-                    >
-                        <service.icon className="h-4 w-4 flex-shrink-0" />
-                        <span>{service.title}</span>
-                    </Button>
-                ))}
-            </div>
-          </div>
-
-           {/* 3D Model Viewer - Placed first for mobile flow */}
-          <div className="min-h-[350px] sm:min-h-[450px] w-full aspect-square md:aspect-auto rounded-lg bg-card border flex items-center justify-center p-2 shadow-inner">
-            <ModelViewer
-              src={activeService.modelUrl}
-              iosSrc={activeService.iosModelUrl}
-              alt={activeService.title}
-            />
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {services.map((service) => (
+            <Link href={service.link} key={service.title} className={`group relative block overflow-hidden rounded-xl ${service.className}`}>
+              <div className="relative h-full w-full min-h-[300px] lg:min-h-[400px]">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  data-ai-hint={service.dataAiHint}
+                />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-primary/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white text-shadow-lg">
+                    {service.title}
+                  </h3>
+                  
+                  <div className="mt-4 transition-all duration-500 ease-in-out transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                    <p className="text-primary-foreground/90">{service.description}</p>
+                    <div className="mt-4 flex items-center font-semibold text-accent">
+                      Conoce más <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
