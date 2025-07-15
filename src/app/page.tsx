@@ -7,7 +7,7 @@ import Portfolio from '@/components/landing/Portfolio';
 import Coverage from '@/components/landing/Coverage';
 import TechSlider from '@/components/landing/TechSlider';
 import SocialResponsibility from '@/components/landing/SocialResponsibility';
-import Contact from '@/components/landing/Contact';
+import ChatbotAssistant from '@/components/landing/ChatbotAssistant';
 import Footer from '@/components/landing/Footer';
 
 export default function HomePage() {
@@ -23,7 +23,7 @@ export default function HomePage() {
         <Coverage />
         <TechSlider />
         <SocialResponsibility />
-        <Contact />
+        <ChatbotAssistant />
       </main>
       <Footer />
     </div>

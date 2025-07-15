@@ -1,143 +1,87 @@
 
 "use client";
 
-import { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from '@/components/ui/button';
 
+const slides = [
+  {
+    image: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'security personnel industry',
+    title: '50 años trabajando por la tranquilidad y seguridad de Colombia',
+    description: 'El compromiso con la seguridad ha sido clave para nuestro crecimiento.',
+    ctaText: 'Conoce más',
+    ctaLink: '#about',
+  },
+  {
+    image: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'technology surveillance center',
+    title: 'Tecnología de Vanguardia para tu Protección',
+    description: 'Integramos drones, IA y sistemas de monitoreo para una seguridad proactiva.',
+    ctaText: 'Ver tecnología',
+    ctaLink: '#tech',
+  },
+  {
+    image: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'security guard smiling',
+    title: 'Cobertura Nacional, Confianza Local',
+    description: 'Con 11 sedes en todo el país, estamos siempre cerca para protegerte.',
+    ctaText: 'Nuestras sedes',
+    ctaLink: '#coverage',
+  },
+];
+
 export default function Hero() {
-  const mountRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!mountRef.current) return;
-
-    const currentMount = mountRef.current;
-    let frameId: number;
-
-    // Scene
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.1);
-
-    // Camera
-    const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-    camera.position.z = 5;
-
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    currentMount.appendChild(renderer.domElement);
-
-    // Model
-    let model: THREE.Group;
-    const loader = new GLTFLoader();
-    loader.load(
-        '/models/Acon Security 3d.glb',
-        (gltf) => {
-            model = gltf.scene;
-            model.scale.set(50, 50, 50);
-            model.position.y = -1;
-            
-            const goldMaterial = new THREE.MeshStandardMaterial({
-                color: 0xffd700, // Gold color
-                metalness: 0.9,
-                roughness: 0.3,
-            });
-
-            model.traverse((child) => {
-                if (child instanceof THREE.Mesh) {
-                    child.material = goldMaterial;
-                }
-            });
-
-            scene.add(model);
-        },
-        undefined,
-        (error) => {
-            console.error('An error happened while loading the model:', error);
-            // Fallback to a visible object if the model fails to load
-            const fallbackGeometry = new THREE.BoxGeometry(1, 1, 1);
-            const fallbackMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-            const fallbackCube = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
-            scene.add(fallbackCube);
-        }
-    );
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-    scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
-    const pointLight = new THREE.PointLight(0xffb200, 30, 100);
-    pointLight.position.set(-5, -2, 3);
-    scene.add(pointLight);
-
-    // Mouse movement
-    let mouseX = 0, mouseY = 0;
-    const handleMouseMove = (event: MouseEvent) => {
-        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-    document.addEventListener('mousemove', handleMouseMove);
-
-    // Animation loop
-    const clock = new THREE.Clock();
-    const animate = () => {
-      frameId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
-
-      if (model) {
-        model.rotation.y = elapsedTime * 0.2;
-        model.position.y = Math.sin(elapsedTime * 0.7) * 0.3 - 1;
-      }
-      
-      // Animate camera
-      camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.02;
-      camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.02;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    // Handle resize
-    const handleResize = () => {
-        if (!currentMount) return;
-        camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-    };
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup on unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(frameId);
-      if (currentMount) {
-        currentMount.removeChild(renderer.domElement);
-      }
-      // You might want to dispose of geometries, materials, textures
-    };
-  }, []);
-
   return (
-    <section id="home" className="relative h-[100dvh] w-full overflow-hidden bg-black">
-      <div ref={mountRef} className="absolute top-0 left-0 w-full h-full z-0" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-[1]" />
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-shadow-lg leading-tight">
-          Protegemos tu mundo
-        </h1>
-        <p className="mt-4 max-w-xl text-lg sm:text-xl md:text-xl text-foreground/80">
-          Soluciones de seguridad integrales con tecnología de vanguardia para tu tranquilidad.
-        </p>
-        <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg py-7 px-10 sm:px-12 rounded-full shadow-lg shadow-accent/20 transform hover:scale-105 transition-transform duration-300">
-          <a href="#contact">Cotiza ahora</a>
-        </Button>
-      </div>
+    <section id="home" className="relative h-[80dvh] w-full text-white">
+      <Carousel 
+        className="w-full h-full"
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 6000, stopOnInteraction: true })]}
+      >
+        <CarouselContent className="h-full">
+          {slides.map((slide, index) => (
+            <CarouselItem key={index} className="h-full">
+              <div className="relative h-full w-full">
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  data-ai-hint={slide.dataAiHint}
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+                <div className="absolute inset-0 flex items-center">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-md text-left">
+                      <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-shadow-lg leading-tight">
+                        {slide.title}
+                      </h1>
+                      <p className="mt-4 max-w-xl text-lg text-foreground/80">
+                        {slide.description}
+                      </p>
+                      <Button asChild size="lg" className="mt-8">
+                        <a href={slide.ctaLink}>{slide.ctaText}</a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 text-white hidden md:flex" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 text-white hidden md:flex" />
+      </Carousel>
     </section>
   );
 }

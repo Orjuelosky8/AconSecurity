@@ -42,7 +42,7 @@ export default function Header() {
 
         <div className="flex flex-1 items-center justify-end space-x-2">
           <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex">
-            <a href="#contact">Cotiza ahora</a>
+            <a href="#assistant">Asistente Virtual</a>
           </Button>
 
           {/* Mobile Menu */}
@@ -73,7 +73,7 @@ export default function Header() {
                   </a>
                 ))}
                 <Button asChild className="w-full mt-4" onClick={() => setIsMenuOpen(false)}>
-                  <a href="#contact">Cotiza ahora</a>
+                  <a href="#assistant">Asistente Virtual</a>
                 </Button>
               </nav>
             </SheetContent>
