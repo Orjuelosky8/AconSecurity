@@ -18,10 +18,8 @@ export default function HomePage() {
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       <Header />
       <main className="flex-1">
-        <div className="relative h-[85vh]">
-          <Hero />
-          <SolutionForm />
-        </div>
+        <Hero />
+        <SolutionForm />
         <ClientLogos />
         <AboutUs />
         <Certifications />

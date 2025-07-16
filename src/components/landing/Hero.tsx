@@ -1,5 +1,7 @@
 
 "use client";
+import { useRef } from "react";
+import './../styles/carrusel.css';
 
 import Image from 'next/image';
 import {
@@ -40,39 +42,41 @@ const slides = [
 ];
 
 export default function Hero() {
+  const autoplay = useRef(
+    Autoplay({ delay: 6000, stopOnInteraction: true })
+  );
+
   return (
-    <section id="home" className="relative h-full w-full text-white">
+    <section id="home" className="relative min-h-[85vh] h-full w-full text-white">
       <Carousel 
-        className="w-full h-full"
+        className="absolute w-full h-full"
         opts={{ loop: true }}
-        plugins={[Autoplay({ delay: 6000, stopOnInteraction: true })]}
+        plugins={[autoplay.current]}
       >
         <CarouselContent className="h-full">
           {slides.map((slide, index) => (
-            <CarouselItem key={index} className="h-full">
-              <div className="relative h-full w-full">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  data-ai-hint={slide.dataAiHint}
-                  priority={index === 0}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
-                <div className="absolute inset-0 flex items-center z-10">
-                  <div className="container mx-auto px-4">
-                    <div className="max-w-md text-left">
-                      <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-shadow-lg leading-tight">
-                        {slide.title}
-                      </h1>
-                      <p className="mt-4 max-w-xl text-lg text-foreground/80">
-                        {slide.description}
-                      </p>
-                      <Button asChild size="lg" className="mt-8">
-                        <a href={slide.ctaLink}>{slide.ctaText}</a>
-                      </Button>
-                    </div>
+            <CarouselItem key={index} className="h-full relative">
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                className="object-cover"
+                data-ai-hint={slide.dataAiHint}
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
+              <div className="absolute inset-0 flex items-center z-10">
+                <div className="container mx-auto px-4">
+                  <div className="max-w-md text-left">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-shadow-lg leading-tight">
+                      {slide.title}
+                    </h1>
+                    <p className="mt-4 max-w-xl text-lg text-foreground/80">
+                      {slide.description}
+                    </p>
+                    <Button asChild size="lg" className="mt-8">
+                      <a href={slide.ctaLink}>{slide.ctaText}</a>
+                    </Button>
                   </div>
                 </div>
               </div>
