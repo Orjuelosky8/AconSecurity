@@ -65,7 +65,7 @@ export default function SolutionForm() {
         <CardHeader className="text-center p-6 sm:p-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-accent">Encuentra tu Solución de Seguridad Ideal</h2>
           <p className="text-md sm:text-lg text-muted-foreground pt-2 max-w-2xl mx-auto">
-            Solo 3 paso te separan de la tranquilidad. Déjanos guiarte.
+            Solo 3 pasos te separan de la tranquilidad. Déjanos guiarte.
           </p>
         </CardHeader>
         <CardContent className="p-6 sm:p-8 pt-0">
@@ -150,16 +150,16 @@ export default function SolutionForm() {
                 )}
               />
             </div>
-            <div className="flex justify-center mt-8">
-              <Button type="submit" disabled={isPending || !isValid} size="lg" className="w-full max-w-xs bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-lg text-lg">
+            <div className="flex justify-center">
+              <Button type="submit" disabled={isPending || !isValid} size="lg" className="color2 w-full max-w-xs bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-lg text-lg color2">
                 {isPending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Obtener recomendación'}
               </Button>
-              <Button type="button" onClick={(e) => {
+              {/* <Button type="button" onClick={(e) => {
                 e.preventDefault(); 
                 console.log("Al finnn!");
               }}>
                 PRUEBA2A
-              </Button>
+              </Button> */}
             </div>
           </form>
         </CardContent>

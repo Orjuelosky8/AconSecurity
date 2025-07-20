@@ -77,7 +77,7 @@ export default function Chatbot() {
 
   return (
     <Card className="w-full h-full shadow-2xl flex flex-col transition-all duration-300 bg-card">
-      <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-primary text-primary-foreground rounded-t-lg">
+      <CardHeader className="flex flex-row items-center gap-4 p-4 border-b color3 text-primary-foreground rounded-t-lg">
         <Avatar>
           <AvatarImage src="https://placehold.co/40x40.png" alt="Jessica Smith" data-ai-hint="woman smiling"/>
           <AvatarFallback>JS</AvatarFallback>
@@ -99,7 +99,7 @@ export default function Chatbot() {
                   <AvatarFallback><Bot size={20}/></AvatarFallback>
                 </Avatar>
               )}
-              <div className={`rounded-lg px-4 py-2 max-w-[85%] whitespace-pre-wrap text-sm shadow-md ${msg.role === 'assistant' ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'}`}>
+              <div className={`rounded-lg px-4 py-2 max-w-[85%] whitespace-pre-wrap text-sm shadow-md ${msg.role === 'assistant' ? 'bg-muted text-foreground' : 'color3 text-primary-foreground'}`}>
                 {isPending && (msg.content === '...' || msg.content === 'Analizando tu solicitud...') ? (
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 animate-spin" />

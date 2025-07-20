@@ -181,7 +181,7 @@ export default function Hero() {
                       <p className="mt-4 max-w-xl text-lg text-foreground/80">
                         {slide.description}
                       </p>
-                      <Button asChild size="lg" className="mt-8">
+                      <Button asChild size="lg" className="mt-8 color3">
                         <a href={slide.ctaLink}>{slide.ctaText}</a>
                       </Button>
                     </div>
