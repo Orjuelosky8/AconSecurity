@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
-type CarouselPlugin = UseCarouselParameters[1]
+type CarouselPlugin = NonNullable<UseCarouselParameters[1]>
 
 type CarouselProps = {
   opts?: CarouselOptions
@@ -58,13 +58,21 @@ const Carousel = React.forwardRef<
     },
     ref
   ) => {
+    // const [carouselRef, api] = useEmblaCarousel(
+    //   {
+    //     ...opts,
+    //     axis: orientation === "horizontal" ? "x" : "y",
+    //   },
+    //   plugins
+    // )
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      plugins
+      plugins ?? [] // 👈 asegura que siempre se pasa un array
     )
+
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
 

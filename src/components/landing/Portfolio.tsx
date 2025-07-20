@@ -4,12 +4,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import img1 from './../media/necesidades1.jpg';
+import img2 from './../media/necesidades2.jpg';
+import img3 from './../media/necesidades3.jpeg';
+import img4 from './../media/necesidades4.png';
+import img5 from './../media/necesidades5.jpg';
 
 const services = [
   {
     title: 'Protegemos tu hogar con la mejor tecnología',
     description: 'Soluciones integrales para mantener tu casa segura y conectada, desde alarmas inteligentes hasta CCTV.',
-    image: 'https://placehold.co/600x800.png',
+    image: img1,
     dataAiHint: 'family home security',
     link: '#',
     className: 'lg:row-span-2',
@@ -17,28 +22,28 @@ const services = [
   {
     title: 'Te protegemos en todo momento',
     description: 'Servicios de acompañamiento y respuesta inmediata para que te sientas seguro dondequiera que estés.',
-    image: 'https://placehold.co/600x400.png',
+    image: img2,
     dataAiHint: 'nightlife security',
     link: '#',
   },
   {
     title: 'Te cuidamos incluso fuera de tu hogar',
     description: 'Con nuestro botón SOS y la app Acon Shield, la ayuda está a un solo toque de distancia.',
-    image: 'https://placehold.co/600x400.png',
+    image: img3,
     dataAiHint: 'personal safety app',
     link: '#',
   },
   {
     title: 'Rapidez ante una intrusión',
     description: 'Nuestro equipo de motorizados garantiza la llegada más rápida ante cualquier emergencia.',
-    image: 'https://placehold.co/600x400.png',
+    image: img4,
     dataAiHint: 'emergency response motorcycle',
     link: '#',
   },
   {
     title: 'Expertos y profesionales en seguridad',
     description: 'Monitoreo 24/7 desde nuestro centro de control con personal altamente capacitado y tecnología de punta.',
-    image: 'https://placehold.co/600x400.png',
+    image: img5,
     dataAiHint: 'security control room',
     link: '#',
   },

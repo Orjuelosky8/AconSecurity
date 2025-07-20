@@ -23,7 +23,8 @@ export default function Header() {
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <a href="/#home" className="mr-6 flex items-center space-x-2">
-            <AconShieldLogo className="h-7 w-auto" />
+            <AconShieldLogo className="h-7 w-auto ml-[25px]" />
+            
           </a>
         </div>
         
