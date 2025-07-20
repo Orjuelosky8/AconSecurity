@@ -2,26 +2,30 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heart, Globe, Users } from 'lucide-react';
 
+import img1 from './../media/responsabilidadSocial1.png';
+import img2 from './../media/responsabilidadSocial2.jpg';
+import img3 from './../media/responsabilidadSocial3.png';
+
 const programs = [
   {
     icon: Heart,
     title: 'Programa Sanar',
     description: 'Apoyamos la recuperación y el bienestar de niños con cáncer, aportando a su tratamiento y calidad de vida.',
-    image: 'https://placehold.co/400x300.png',
+    image: img1,
     dataAiHint: 'charity donation'
   },
   {
     icon: Globe,
     title: 'Donaciones a UNICEF',
     description: 'Contribuimos con UNICEF para proteger los derechos de los niños en Colombia y en todo el mundo.',
-    image: 'https://placehold.co/400x300.png',
+    image: img2,
     dataAiHint: 'children playing'
   },
   {
     icon: Users,
     title: 'Fundación Colombia Chiquita',
     description: 'Fomentamos el desarrollo y la educación en comunidades vulnerables a través de esta valiosa fundación.',
-    image: 'https://placehold.co/400x300.png',
+    image: img3,
     dataAiHint: 'community building'
   },
 ];

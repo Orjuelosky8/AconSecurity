@@ -111,6 +111,11 @@
 import './../styles/carrusel.css';
 import Image from 'next/image';
 
+import img1 from './../media/hero1.jpg';
+import img2 from './../media/mapprovisional.jpg';
+import img3 from './../media/hero3.jpg';
+import img4 from './../media/hero4.jpg';
+
 import {
   Carousel,
   CarouselContent,
@@ -127,25 +132,32 @@ console.log("Hola2 " + autoplay);
 
 const slides = [
   {
-    image: 'https://placehold.co/1920x1080.png',
+    image: img1,
     title: '50 años trabajando por la tranquilidad y seguridad de Colombia',
     description: 'El compromiso con la seguridad ha sido clave para nuestro crecimiento.',
     ctaText: 'Conoce más',
     ctaLink: '#about',
   },
   {
-    image: 'https://placehold.co/1920x1080/00FF00/000000.png?text=Slide+2',
+    image: img2,
+    title: 'Cobertura Nacional, Confianza Local',
+    description: 'Con 11 sedes en todo el país, estamos siempre cerca para protegerte.',
+    ctaText: 'Nuestras sedes',
+    ctaLink: '#coverage',
+  },
+  {
+    image: img3,
     title: 'Tecnología de Vanguardia para tu Protección',
     description: 'Integramos drones, IA y sistemas de monitoreo para una seguridad proactiva.',
     ctaText: 'Ver tecnología',
     ctaLink: '#tech',
   },
   {
-    image: 'https://placehold.co/1920x1080/0000FF/FFFFFF.png?text=Slide+3',
-    title: 'Cobertura Nacional, Confianza Local',
-    description: 'Con 11 sedes en todo el país, estamos siempre cerca para protegerte.',
-    ctaText: 'Nuestras sedes',
-    ctaLink: '#coverage',
+    image: img4,
+    title: 'App de seguridad al alcance de tu mano',
+    description: 'Botón de pánico y reportes desde tu celular.',
+    ctaText: 'Ver App',
+    ctaLink: '#tech',
   },
 ];
 

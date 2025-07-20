@@ -11,22 +11,25 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
 
+import img1 from './../media/tech1.jpg';
+import img2 from './../media/tech2.png';
+import img3 from './../media/tech3.jpg';
 
 const techData = [
   {
-    image: 'https://placehold.co/800x600.png',
+    image: img1,
     dataAiHint: 'security camera',
     title: 'Cámara IA de Perímetro',
     description: 'Nuestras cámaras con inteligencia artificial analizan el video en tiempo real, identificando intrusos, vehículos y comportamientos anómalos con una precisión sin precedentes.',
   },
   {
-    image: 'https://placehold.co/800x600.png',
+    image: img2,
     dataAiHint: 'radar system',
     title: 'Radar de Detección Terrestre',
     description: 'El radar ofrece una capa adicional de seguridad, detectando movimiento en cualquier condición climática y de iluminación, inmune a falsas alarmas por animales pequeños o vegetación.',
   },
   {
-    image: 'https://placehold.co/800x600.png',
+    image: img3,
     dataAiHint: 'video wall',
     title: 'Videowall para Centros de Monitoreo',
     description: 'Visualiza todas tus cámaras y sistemas en un único videowall de alta resolución, permitiendo a nuestros operadores una conciencia situacional completa y una respuesta más rápida.',

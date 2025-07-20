@@ -21,10 +21,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <div className="ml-[15px] mr-4 flex">
+        <div className="ml-[15px] mt-[5px] mb-[5px] mr-4 flex">
           <a href="/#home" className="mr-6 flex items-center space-x-2">
             <AconShieldLogo className="h-7 w-auto ml-[25px]" />
-            
           </a>
         </div>
         
