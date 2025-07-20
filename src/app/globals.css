@@ -88,4 +88,11 @@ body {
   .animate-scroll-x {
     animation: scroll-x 40s linear infinite;
   }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
