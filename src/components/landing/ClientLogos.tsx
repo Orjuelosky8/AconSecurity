@@ -3,22 +3,29 @@
 
 import Image from 'next/image';
 
+import img1 from './../media/logos/logo-bancolombia.svg';
+import img2 from './../media/logos/logo-avianca.png';
+import img3 from './../media/logos/logo-colpatria.png';
+import img4 from './../media/logos/logo-constructoraVIS.png';
+import img5 from './../media/logos/logo-enel.png';
+import img6 from './../media/logos/logo-federacionNacionalCafeterosColombia.png';
+import img7 from './../media/logos/logo-nestle.png';
+
 const clients = [
-  { name: 'Empresa A', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'company logo' },
-  { name: 'Empresa B', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'business logo' },
-  { name: 'Empresa C', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'corporate logo' },
-  { name: 'Empresa D', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'brand logo' },
-  { name: 'Empresa E', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'company logo' },
-  { name: 'Empresa F', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'business logo' },
-  { name: 'Empresa G', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'corporate logo' },
-  { name: 'Empresa H', logoUrl: 'https://placehold.co/150x60.png', website: '#', dataAiHint: 'brand logo' },
+  { name: 'Empresa A', logoUrl: img1, website: '#', dataAiHint: 'company logo' },
+  { name: 'Empresa B', logoUrl: img2, website: '#', dataAiHint: 'business logo' },
+  { name: 'Empresa C', logoUrl: img3, website: '#', dataAiHint: 'corporate logo' },
+  { name: 'Empresa D', logoUrl: img4, website: '#', dataAiHint: 'brand logo' },
+  { name: 'Empresa E', logoUrl: img5, website: '#', dataAiHint: 'company logo' },
+  { name: 'Empresa F', logoUrl: img6, website: '#', dataAiHint: 'company logo' },
+  { name: 'Empresa G', logoUrl: img7, website: '#', dataAiHint: 'business logo' },
 ];
 
 const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
 
 export default function ClientLogos() {
   return (
-    <section id="clients" className="py-12 bg-muted/30">
+    <section id="clients" className="py-12 bg-muted/30 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestros Protegidos</h2>

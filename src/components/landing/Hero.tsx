@@ -113,7 +113,7 @@ import Image from 'next/image';
 
 import img1 from './../media/hero1.jpg';
 import img2 from './../media/mapprovisional.jpg';
-import img3 from './../media/hero3.jpg';
+import img3 from './../media/hero3.svg';
 import img4 from './../media/hero4.jpg';
 
 import {
