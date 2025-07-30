@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -15,16 +16,25 @@ const navItems = [
   { name: 'Social', href: '/#social' },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  onAssistantClick: () => void;
+}
+
+export default function Header({ onAssistantClick }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMobileAssistantClick = () => {
+    setIsMenuOpen(false);
+    onAssistantClick();
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="ml-[15px] mt-[5px] mb-[5px] mr-4 flex">
-          <a href="/#home" className="mr-6 flex items-center space-x-2">
+          <Link href="/#home" className="mr-6 flex items-center space-x-2">
             <AconShieldLogo className="h-7 w-auto ml-[25px]" />
-          </a>
+          </Link>
         </div>
         
         <nav className="hidden items-center gap-6 text-sm md:flex">
@@ -40,11 +50,9 @@ export default function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button asChild className="rounded-full shadow-lg color3 text-primary-foreground hover:bg-primary/90 hidden md:flex">
-            <Link href="/chat">
+          <Button onClick={onAssistantClick} className="rounded-full shadow-lg color3 text-primary-foreground hover:bg-primary/90 hidden md:flex">
               <MessageSquareHeart className="mr-2 h-5 w-5" />
               Asistente Virtual
-            </Link>
           </Button>
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -73,8 +81,8 @@ export default function Header() {
                     {item.name}
                   </a>
                 ))}
-                <Button asChild className="w-full mt-4 color1">
-                  <Link href="/chat" onClick={() => setIsMenuOpen(false)}>Asistente Virtual</Link>
+                <Button onClick={handleMobileAssistantClick} className="w-full mt-4 color1">
+                  Asistente Virtual
                 </Button>
               </nav>
             </SheetContent>

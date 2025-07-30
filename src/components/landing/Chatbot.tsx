@@ -3,12 +3,11 @@
 
 import { useState, useTransition, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Bot, User, Loader2, Send } from 'lucide-react';
+import { Bot, User, Loader2, Send, X } from 'lucide-react';
 import { solutionAssistant, SolutionAssistantInput } from '@/ai/flows/solution-assistant-flow';
-import { useSearchParams } from 'next/navigation';
 import { Textarea } from '../ui/textarea';
 
 type Message = {
@@ -16,18 +15,22 @@ type Message = {
   content: string;
 };
 
-export default function Chatbot() {
+interface ChatbotProps {
+  initialData: SolutionAssistantInput | null;
+  onClose: () => void;
+}
+
+export default function Chatbot({ initialData, onClose }: ChatbotProps) {
   const [isPending, startTransition] = useTransition();
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState('');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
 
-  const initialData: SolutionAssistantInput | null = searchParams.has('solutionType') ? {
-    solutionType: searchParams.get('solutionType')!,
-    entityType: searchParams.get('entityType')!,
-    situation: searchParams.get('situation')!,
-  } : null;
+  const sampleMessages: Message[] = [
+    { role: 'assistant', content: "¡Hola! Gracias por tu consulta." },
+    { role: 'user', content: "Busco una solución para: mi-empresa, tipo: vigilancia-tecnologica, situación: control-acceso." },
+    { role: 'assistant', content: 'Para controlar el acceso en tu empresa, te recomiendo nuestros sistemas de <a href="#services" class="underline text-primary">Control de Acceso RFID</a> y <a href="#services" class="underline text-primary">CCTV con IA</a> para una supervisión completa. ¿Quieres una personalización más detallada?' }
+  ];
 
   useEffect(() => {
     if (initialData) {
@@ -44,10 +47,10 @@ export default function Chatbot() {
         setMessages(prev => [prev[0], finalMessage]);
       });
     } else {
-      setMessages([{ role: 'assistant', content: '¡Hola! Soy tu asistente de Acon Shield. ¿En qué puedo ayudarte hoy? Cuéntame qué necesitas.' }]);
+       setMessages(sampleMessages);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -74,19 +77,25 @@ export default function Chatbot() {
   };
 
   return (
-    <Card className="w-full h-full shadow-2xl flex flex-col transition-all duration-300 bg-card/80 backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-r from-primary via-teal-500 to-teal-600 text-primary-foreground rounded-t-lg">
-        <Avatar>
-          <AvatarImage src="https://placehold.co/40x40.png" alt="Acon Shield Assistant" data-ai-hint="logo shield"/>
-          <AvatarFallback>AS</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col">
-          <CardTitle className="text-lg font-bold tracking-tight">Asistente Acon Shield</CardTitle>
-          <div className="text-xs text-primary-foreground/90 flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
-            Online
-          </div>
+    <Card className="w-full max-w-md h-[70vh] shadow-2xl flex flex-col transition-all duration-300 bg-card/80 backdrop-blur-sm rounded-lg">
+      <CardHeader className="flex flex-row items-center justify-between gap-4 p-4 border-b bg-gradient-to-r from-primary via-teal-500 to-teal-600 text-primary-foreground rounded-t-lg">
+        <div className="flex items-center gap-4">
+            <Avatar>
+              <AvatarImage src="https://placehold.co/40x40.png" alt="Acon Shield Assistant" data-ai-hint="logo shield"/>
+              <AvatarFallback>AS</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <CardTitle className="text-lg font-bold tracking-tight">Asistente Acon Shield</CardTitle>
+              <div className="text-xs text-primary-foreground/90 flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
+                Online
+              </div>
+            </div>
         </div>
+        <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-primary-foreground hover:bg-black/20">
+            <X size={20}/>
+            <span className="sr-only">Cerrar</span>
+        </Button>
       </CardHeader>
       <CardContent className="flex-1 p-0 overflow-hidden">
         <ScrollArea className="h-full p-4 space-y-6 scrollbar-hide" ref={scrollAreaRef}>
@@ -94,6 +103,7 @@ export default function Chatbot() {
             <div key={index} className={`flex items-end gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'assistant' && (
                 <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start">
+                   <AvatarImage src="https://placehold.co/40x40.png" alt="Acon Shield Assistant" data-ai-hint="logo shield"/>
                   <AvatarFallback><Bot size={20}/></AvatarFallback>
                 </Avatar>
               )}
@@ -117,7 +127,7 @@ export default function Chatbot() {
           ))}
         </ScrollArea>
       </CardContent>
-      <CardFooter className="p-3 border-t bg-card/50 rounded-b-lg">
+      <CardContent className="p-3 border-t bg-card/50 rounded-b-lg">
         <form onSubmit={handleSendMessage} className="flex items-center gap-3 w-full">
            <Textarea 
             value={userInput}
@@ -138,7 +148,7 @@ export default function Chatbot() {
             <Send className="h-5 w-5" />
           </Button>
         </form>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }

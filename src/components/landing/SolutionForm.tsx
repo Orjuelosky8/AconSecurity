@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Building, Home, Calendar, ShieldCheck, Cpu, DraftingCompass, Search, UserCheck, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 const solutionSchema = z.object({
   solutionType: z.string({ required_error: "Selecciona una solución." }).min(1, "Debes seleccionar una opción."),
@@ -18,6 +17,10 @@ const solutionSchema = z.object({
 });
 
 type FormData = z.infer<typeof solutionSchema>;
+
+interface SolutionFormProps {
+  onSubmit: (data: FormData) => void;
+}
 
 const stepOptions = {
   solutionType: [
@@ -38,9 +41,8 @@ const stepOptions = {
   ],
 };
 
-export default function SolutionForm() {
+export default function SolutionForm({ onSubmit }: SolutionFormProps) {
   const [isPending, startTransition] = React.useTransition();
-  const router = useRouter();
   
   const { control, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
     resolver: zodResolver(solutionSchema),
@@ -52,15 +54,14 @@ export default function SolutionForm() {
     }
   });
 
-  const onSubmit = (data: FormData) => {
+  const handleFormSubmit = (data: FormData) => {
     startTransition(() => {
-        const params = new URLSearchParams(data);
-        router.push(`/chat?${params.toString()}`);
+        onSubmit(data);
     });
   };
 
   return (
-    <section id="assistant-form" className="absolute top-[80%] left-1/2 -translate-x-1/2 w-full max-w-4xl z-20 px-4">
+    <section id="assistant-form" className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl z-10 px-4">
       <Card className="border-accent/30 bg-card shadow-2xl shadow-accent/10 rounded-2xl z-20 relative">
         <CardHeader className="text-center p-6 sm:p-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-accent">Encuentra tu Solución de Seguridad Ideal</h2>
@@ -69,7 +70,7 @@ export default function SolutionForm() {
           </p>
         </CardHeader>
         <CardContent className="p-6 sm:p-8 pt-0">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
               <Controller
                 name="solutionType"
@@ -154,12 +155,6 @@ export default function SolutionForm() {
               <Button type="submit" disabled={isPending || !isValid} size="lg" className="color2 w-full max-w-xs bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-lg text-lg color2">
                 {isPending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Obtener recomendación'}
               </Button>
-              {/* <Button type="button" onClick={(e) => {
-                e.preventDefault(); 
-                console.log("Al finnn!");
-              }}>
-                PRUEBA2A
-              </Button> */}
             </div>
           </form>
         </CardContent>
