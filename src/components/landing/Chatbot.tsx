@@ -27,9 +27,9 @@ export default function Chatbot({ initialData, onClose }: ChatbotProps) {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const sampleMessages: Message[] = [
-    { role: 'assistant', content: "¡Hola! Gracias por tu consulta." },
-    { role: 'user', content: "Busco una solución para: mi-empresa, tipo: vigilancia-tecnologica, situación: control-acceso." },
-    { role: 'assistant', content: 'Para controlar el acceso en tu empresa, te recomiendo nuestros sistemas de <a href="#services" class="underline text-primary">Control de Acceso RFID</a> y <a href="#services" class="underline text-primary">CCTV con IA</a> para una supervisión completa. ¿Quieres una personalización más detallada?' }
+    { role: 'assistant', content: "¡Hola! ¿En qué puedo ayudarte hoy?" },
+    { role: 'user', content: "Me gustaría saber más sobre sus servicios de CCTV con IA." },
+    { role: 'assistant', content: 'Claro, nuestros sistemas de <a href="#services" class="underline text-primary">CCTV con IA</a> utilizan tecnología de punta para la detección proactiva de amenazas. ¿Quieres una personalización más detallada?' }
   ];
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function Chatbot({ initialData, onClose }: ChatbotProps) {
               </div>
             </div>
         </div>
-        <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-primary-foreground hover:bg-black/20">
+        <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-primary-foreground hover:bg-black/20 rounded-full">
             <X size={20}/>
             <span className="sr-only">Cerrar</span>
         </Button>
