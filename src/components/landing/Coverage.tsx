@@ -85,48 +85,72 @@ export default function Coverage() {
         };
       }, []);
 
-  return (
-    <section id="coverage" className="py-20 sm:py-32 bg-card">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-primary">Cobertura Nacional</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Estamos donde nos necesitas. Conoce nuestras sedes y contáctanos.
-          </p>
-        </div>
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-            <div className="lg:col-span-2 min-h-[400px] md:min-h-[500px] rounded-lg border bg-background p-2" ref={mountRef}/>
-            <div className="flex flex-col gap-4">
+      return (
+        <section id="coverage" className="py-20 sm:py-32 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold tracking-tight text-primary">Cobertura Nacional</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                Estamos donde nos necesitas. Conoce nuestras sedes y contáctanos.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+              {/* Mapa 3D */}
+              <div
+                className="
+                  w-full 
+                  aspect-[4/5] 
+                  max-h-[280px] 
+                  md:max-h-[420px] 
+                  rounded-lg border 
+                  bg-background p-2
+                  mx-auto
+                "
+                ref={mountRef}
+              />
+              {/* Selector ciudades */}
+              <div className="flex flex-col gap-4 w-full mt-4 lg:mt-0">
                 <Card className="bg-background border-accent/20 shadow-lg">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-accent">
-                            <MapPin /> {selectedCity.city}
-                        </CardTitle>
-                        <CardDescription>Información de contacto</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <a href={`tel:${selectedCity.phone}`} className="flex items-center gap-2 text-lg hover:underline">
-                            <Phone className="h-5 w-5" />
-                            <span>{selectedCity.phone}</span>
-                        </a>
-                    </CardContent>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-accent">
+                      <MapPin /> {selectedCity.city}
+                    </CardTitle>
+                    <CardDescription>Información de contacto</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <a
+                      href={`tel:${selectedCity.phone}`}
+                      className="flex items-center gap-2 text-lg hover:underline"
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span>{selectedCity.phone}</span>
+                    </a>
+                  </CardContent>
                 </Card>
                 <Card className="bg-background">
                   <CardContent className="p-2">
                     <div className="max-h-[260px] overflow-y-auto space-y-1 pr-2">
-                        {locations.map((loc) => (
-                            <button key={loc.city} onClick={() => setSelectedCity(loc)}
-                                className={`w-full text-left p-3 rounded-md transition-colors text-sm font-medium ${selectedCity.city === loc.city ? 'bg-primary/90 text-primary-foreground' : 'hover:bg-muted'}`}
-                            >
-                                {loc.city}
-                            </button>
-                        ))}
+                      {locations.map((loc) => (
+                        <button
+                          key={loc.city}
+                          onClick={() => setSelectedCity(loc)}
+                          className={`
+                            w-full text-left p-3 rounded-md transition-colors text-sm font-medium 
+                            ${selectedCity.city === loc.city
+                              ? 'bg-primary/90 text-primary-foreground'
+                              : 'hover:bg-muted'}
+                          `}
+                        >
+                          {loc.city}
+                        </button>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
+              </div>
             </div>
-        </div>
-      </div>
-    </section>
-  );
+          </div>
+        </section>
+      );
+      
 }

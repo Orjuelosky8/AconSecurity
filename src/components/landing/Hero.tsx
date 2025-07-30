@@ -106,6 +106,7 @@
 
 //   );
 // }
+
 "use client";
 
 import './../styles/carrusel.css';
@@ -113,7 +114,7 @@ import Image from 'next/image';
 
 import img1 from './../media/hero1.jpg';
 import img2 from './../media/mapprovisional.jpg';
-import img3 from './../media/hero3.svg';
+import img3 from './../media/hero3.jpg';
 import img4 from './../media/hero4.jpg';
 
 import {
@@ -125,15 +126,18 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from '@/components/ui/button';
+import useEmblaCarousel from 'embla-carousel-react';
+import { useEffect } from 'react';
 
 console.log("Hola1 ");
-const autoplay = Autoplay({ delay: 6000, stopOnInteraction: false });
-console.log("Hola2 " + autoplay);
+const autoplay = Autoplay({ delay: 4000, stopOnInteraction: false });
+//const [emblaRef] = useEmblaCarousel({ loop: true }, [autoplay]);
+//console.log("Hola2 " + autoplay);
 
 const slides = [
   {
     image: img1,
-    title: '50 años trabajando por la tranquilidad y seguridad de Colombia',
+    title: '29 años trabajando por la tranquilidad y seguridad de Colombia',
     description: 'El compromiso con la seguridad ha sido clave para nuestro crecimiento.',
     ctaText: 'Conoce más',
     ctaLink: '#about',
@@ -162,6 +166,11 @@ const slides = [
 ];
 
 export default function Hero() {
+
+  console.log("¡React está funcionando!");
+  useEffect(() => {
+    console.log("[Hero] effect");
+  }, []);
   return (
     <section id="home" className="relative w-full text-white overflow-hidden min-h-[85vh]">
       <Carousel
@@ -209,3 +218,4 @@ export default function Hero() {
     </section>
   );
 }
+
