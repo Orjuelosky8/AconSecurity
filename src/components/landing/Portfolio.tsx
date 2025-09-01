@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ArrowRight, Star, ThumbsUp } from 'lucide-react';
+import { ArrowRight, Star, ThumbsUp, X } from 'lucide-react';
 import img1 from './../media/necesidades1.jpg';
 import img2 from './../media/necesidades2.jpg';
 import img3 from './../media/necesidades3.jpeg';
@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const services = [
   {
@@ -139,47 +140,56 @@ export default function Portfolio() {
 
       {selectedService && (
         <AlertDialog open={!!selectedService} onOpenChange={handleCloseModal}>
-          <AlertDialogContent className="max-w-3xl bg-card border-border shadow-2xl rounded-2xl">
-            <AlertDialogHeader className="mb-4">
+          <AlertDialogContent className="max-w-3xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh]">
+             <AlertDialogHeader className="p-6 pb-4 sticky top-0 bg-card z-10 border-b">
               <AlertDialogTitle className="text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
-              <AlertDialogDescription className="text-base text-muted-foreground pt-2">
-                {selectedService.longDescription}
-              </AlertDialogDescription>
+               <AlertDialogCancel asChild className="absolute top-4 right-4 rounded-full w-8 h-8 p-0">
+                  <Button variant="ghost" onClick={handleCloseModal}>
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Cerrar</span>
+                  </Button>
+              </AlertDialogCancel>
             </AlertDialogHeader>
             
-            <Separator className="my-4 bg-border/50" />
+            <ScrollArea className="flex-1">
+              <div className="px-6 pb-6 space-y-6">
+                <AlertDialogDescription className="text-base text-muted-foreground pt-2">
+                    {selectedService.longDescription}
+                </AlertDialogDescription>
+              
+                <Separator className="bg-border/50" />
 
-            <div>
-              <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
-                <ThumbsUp className="h-5 w-5" />
-                Destacado
-              </h3>
-              <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">"{selectedService.highlight}"</p>
-            </div>
-            
-            <Separator className="my-4 bg-border/50" />
+                <div>
+                  <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
+                    <ThumbsUp className="h-5 w-5" />
+                    Destacado
+                  </h3>
+                  <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">"{selectedService.highlight}"</p>
+                </div>
+                
+                <Separator className="bg-border/50" />
 
-            <div>
-              <h3 className="text-xl font-semibold text-accent mb-4">Testimonios de Clientes</h3>
-              <div className="space-y-4">
-                {selectedService.testimonials.map((testimonial, index) => (
-                  <div key={index} className="bg-background p-4 rounded-lg border border-border/30">
-                    <div className="flex items-center mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground italic mb-2">"{testimonial.comment}"</p>
-                    <p className="text-right font-semibold text-foreground text-sm">- {testimonial.name}</p>
+                <div>
+                  <h3 className="text-xl font-semibold text-accent mb-4">Testimonios de Clientes</h3>
+                  <div className="space-y-4">
+                    {selectedService.testimonials.map((testimonial, index) => (
+                      <div key={index} className="bg-background p-4 rounded-lg border border-border/30">
+                        <div className="flex items-center mb-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                          ))}
+                        </div>
+                        <p className="text-muted-foreground italic mb-2">"{testimonial.comment}"</p>
+                        <p className="text-right font-semibold text-foreground text-sm">- {testimonial.name}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            </ScrollArea>
 
-            <AlertDialogFooter className="mt-6">
-              <AlertDialogCancel asChild>
-                <Button variant="outline" onClick={handleCloseModal} className="rounded-full px-6">Cerrar</Button>
-              </AlertDialogCancel>
+            <AlertDialogFooter className="p-6 pt-4 sticky bottom-0 bg-card z-10 border-t">
+              <Button variant="outline" onClick={handleCloseModal} className="rounded-full px-6 w-full sm:w-auto">Cerrar</Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
