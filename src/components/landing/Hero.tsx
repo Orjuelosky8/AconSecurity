@@ -17,8 +17,6 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from '@/components/ui/button';
-import useEmblaCarousel from 'embla-carousel-react';
-import { useEffect } from 'react';
 
 const autoplay = Autoplay({ delay: 4000, stopOnInteraction: false });
 

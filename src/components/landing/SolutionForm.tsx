@@ -7,8 +7,7 @@ import { z } from 'zod';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Building, Home, Shield, ShieldCheck, Users, Search, Lock, Truck } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Building, Home, Shield, ShieldCheck, Users, Search, Lock, Truck, ShieldQuestion, Building2 } from 'lucide-react';
 
 const solutionSchema = z.object({
   solutionType: z.string({ required_error: "Selecciona una solución." }).min(1, "Debes seleccionar una opción."),
@@ -26,17 +25,18 @@ const stepOptions = {
   solutionType: [
     { value: 'mi-empresa', label: 'Mi Empresa', icon: Building },
     { value: 'mi-hogar', label: 'Mi Hogar', icon: Home },
-    { value: 'conjunto-residencial', label: 'Mi Conjunto', icon: Building },
+    { value: 'conjunto-residencial', label: 'Mi Conjunto', icon: Building2 },
   ],
   entityType: [
     { value: 'vigilancia-fija', label: 'Vigilancia Fija', icon: ShieldCheck },
     { value: 'vigilancia-movil', label: 'Vigilancia Móvil', icon: Shield },
     { value: 'escoltas', label: 'Servicio de Escoltas', icon: Users },
+    { value: 'seguridad-electronica', label: 'Seguridad Electrónica', icon: ShieldQuestion },
   ],
   situation: [
-    { value: 'prevenir-robos', label: 'Prevenir Robos', icon: Search },
+    { value: 'prevenir-robos', label: 'Prevenir Robos e Intrusiones', icon: Search },
     { value: 'control-accesos', label: 'Controlar Accesos', icon: Lock },
-    { value: 'proteger-transporte', label: 'Proteger Transporte', icon: Truck },
+    { value: 'proteger-transporte', label: 'Proteger Mercancías o Personas', icon: Truck },
   ],
 };
 
@@ -80,9 +80,7 @@ export default function SolutionForm({ onSubmit }: SolutionFormProps) {
                       <span className="text-2xl font-bold">1</span>
                     </div>
                     <h3 className="font-semibold mb-2">Busco proteger</h3>
-                    <Select onValueChange={(value) => {
-                      field.onChange(value === field.value ? "Selecciona..." : value);
-                    }} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Selecciona..." />
                       </SelectTrigger>
@@ -113,9 +111,7 @@ export default function SolutionForm({ onSubmit }: SolutionFormProps) {
                       <span className="text-2xl font-bold">2</span>
                     </div>
                     <h3 className="font-semibold mb-2">Necesito un servicio de</h3>
-                    <Select onValueChange={(value) => {
-                      field.onChange(value === field.value ? "" : value);
-                    }} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Selecciona..." />
                       </SelectTrigger>
@@ -146,9 +142,7 @@ export default function SolutionForm({ onSubmit }: SolutionFormProps) {
                       <span className="text-2xl font-bold">3</span>
                     </div>
                     <h3 className="font-semibold mb-2">Mi objetivo es</h3>
-                    <Select onValueChange={(value) => {
-                      field.onChange(value === field.value ? "" : value);
-                    }} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Selecciona..." />
                       </SelectTrigger>

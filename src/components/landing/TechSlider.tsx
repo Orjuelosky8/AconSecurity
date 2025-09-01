@@ -15,6 +15,7 @@ import img1 from './../media/tech1.jpg';
 import img2 from './../media/tech2.png';
 import img3 from './../media/tech3.jpg';
 
+
 const techData = [
   {
     image: img1,
@@ -33,6 +34,18 @@ const techData = [
     dataAiHint: 'access control biometric',
     title: 'Control de Acceso Electrónico',
     description: 'Implementamos sistemas con tarjetas, biometría o QR para regular y auditar el ingreso a instalaciones, garantizando que solo personal autorizado acceda a zonas restringidas.',
+  },
+   {
+    image: img1, // Replaced missing img4 with img1
+    dataAiHint: 'gps tracking satellite',
+    title: 'Monitoreo Satelital y GPS',
+    description: 'Utilizamos dispositivos GPS en vehículos y mercancías para el seguimiento en tiempo real de rutas críticas y la geo-localización de personal de respuesta.',
+  },
+  {
+    image: img3, // Replaced missing img5 with img3
+    dataAiHint: 'communication radio guard',
+    title: 'Comunicación y Respuesta Inmediata',
+    description: 'Equipamos a nuestros guardias con radios, smartphones y apps de gestión para una coordinación continua y una respuesta en segundos ante cualquier incidente.',
   },
 ];
 
