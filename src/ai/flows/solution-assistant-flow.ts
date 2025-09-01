@@ -34,23 +34,22 @@ const prompt = ai.definePrompt({
     - Necesita un servicio de: {{{entityType}}}
     - Su objetivo es: {{{situation}}}
 
-    Servicios disponibles y sus enlaces de anclaje:
-    - Vigilancia Fija: #services
-    - Vigilancia Móvil: #services
-    - Escolta a Personas: #services
-    - Escolta de Mercancías: #services
-    - Seguridad Electrónica y Monitoreo 24/7: #services
-    - Tecnologías como CCTV, Alarmas, Control de Acceso: #tech
-    - Sobre Nosotros: #about
+    Servicios disponibles que puedes recomendar:
+    - Vigilancia Fija
+    - Vigilancia Móvil
+    - Escolta a Personas
+    - Escolta de Mercancías
+    - Seguridad Electrónica y Monitoreo 24/7
 
     Instrucciones de respuesta:
     1. Comienza con un saludo amigable como "¡Hola! Gracias por tu consulta. En Acon Security, servimos por vocación y estamos aquí para ayudarte."
-    2. Basado en la información proporcionada, analiza y recomienda 1 o 2 servicios que se ajusten mejor a la necesidad. Sé específico en tu recomendación. Por ejemplo, si el objetivo es 'control-accesos' en 'mi-empresa', recomienda 'Vigilancia Fija' y 'Control de Acceso Electrónico'. Si es 'proteger-transporte', recomienda 'Escolta de Mercancías'.
-    3. **MUY IMPORTANTE**: Para cada servicio recomendado, incluye un enlace de anclaje HTML (ej. <a href="#services" class="underline text-primary">Vigilancia Fija</a> o <a href="#tech" class="underline text-primary">nuestras tecnologías</a>).
+    2. Basado en la información proporcionada, analiza y recomienda 1 o 2 servicios que se ajusten mejor a la necesidad. Sé específico. Por ejemplo, si el objetivo es 'control-accesos' en 'mi-empresa', recomienda 'Vigilancia Fija' y 'Seguridad Electrónica'. Si es 'proteger-transporte', recomienda 'Escolta de Mercancías'.
+    3. **MUY IMPORTANTE**: Para cada servicio recomendado, genera un enlace con el atributo 'data-service' que contenga el nombre EXACTO del servicio. Ejemplo: <a href="#" data-service="Vigilancia Fija" class="underline text-primary">Vigilancia Fija</a>.
     4. Después de las recomendaciones, finaliza SIEMPRE con la pregunta exacta: "¿Quieres una personalización más detallada?".
     5. La respuesta debe ser concisa, en un solo bloque de texto. No uses markdown, listas con guiones o numeración. Mantén un tono conversacional y profesional.
   `,
 });
+
 
 const solutionAssistantFlow = ai.defineFlow(
   {

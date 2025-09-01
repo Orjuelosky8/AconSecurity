@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useTransition, useEffect, useRef } from "react";
+import { useState, useTransition, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +11,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bot, User, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { solutionAssistant, type SolutionAssistantInput } from "@/ai/flows/solution-assistant-flow";
@@ -24,38 +24,33 @@ type Message = {
 interface ChatbotProps {
   onClose: () => void;
   initialData?: SolutionAssistantInput | null;
+  onServiceClick: (serviceTitle: string) => void;
 }
 
 const sampleMessages: Message[] = [
   {
     role: "assistant",
-    content: "¡Hola! Soy tu asistente de Acon Shield. Basado en tu selección, he preparado algunas recomendaciones para ti.",
+    content: "¡Hola! Soy tu asistente de Acon Shield. ¿En qué puedo ayudarte hoy?",
   },
-  {
-    role: "assistant",
-    content: `
-      <div>
-        Para la <strong>prevención de robos en tu empresa</strong>, te sugiero considerar:
-        <ul class="list-disc pl-5 mt-2 space-y-1">
-          <li>Instalar un sistema de <a href="#services" class="underline text-primary">CCTV inteligente con IA</a> para detectar intrusos.</li>
-          <li>Implementar <a href="#services" class="underline text-primary">guardas de seguridad</a> para rondas perimetrales.</li>
-        </ul>
-        <p class="mt-3">¿Quieres una personalización más detallada?</p>
-      </div>
-    `,
-  },
-  {
-    role: "user",
-    content: "Sí, me interesa la opción de CCTV con IA. ¿Puedes darme más detalles?",
-  }
 ];
 
-
-export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
+export default function Chatbot({ onClose, initialData = null, onServiceClick }: ChatbotProps) {
   const [isPending, startTransition] = useTransition();
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  const handleContentClick = useCallback((e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const link = target.closest('a[data-service]');
+    if (link) {
+      e.preventDefault();
+      const serviceTitle = link.getAttribute('data-service');
+      if (serviceTitle) {
+        onServiceClick(serviceTitle);
+      }
+    }
+  }, [onServiceClick]);
 
   useEffect(() => {
     if (initialData) {
@@ -69,13 +64,17 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
         ]);
       });
     } else {
-       setMessages(sampleMessages);
+      setMessages(sampleMessages);
     }
   }, [initialData]);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    const scrollArea = scrollAreaRef.current;
+    if (scrollArea) {
+      const viewport = scrollArea.querySelector('div[data-radix-scroll-area-viewport]');
+      if (viewport) {
+        viewport.scrollTop = viewport.scrollHeight;
+      }
     }
   }, [messages]);
 
@@ -85,7 +84,6 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
 
     const userMessage: Message = { role: "user", content: userInput };
     setMessages((prev) => [...prev, userMessage]);
-    const currentInput = userInput;
     setUserInput("");
 
     startTransition(async () => {
@@ -101,12 +99,9 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
     <Card className="w-[400px] max-w-full h-[640px] max-h-[85vh] shadow-2xl rounded-2xl flex flex-col border bg-card text-card-foreground">
       <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-br from-primary/80 to-accent/70 text-primary-foreground relative shadow-sm">
         <Avatar>
-          <AvatarImage
-            src="https://placehold.co/40x40.png"
-            alt="Acon Shield Assistant"
-            data-ai-hint="logo shield"
-          />
-          <AvatarFallback>AS</AvatarFallback>
+          <AvatarFallback className="bg-transparent">
+            <Bot className="h-6 w-6 text-primary-foreground" />
+          </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
           <CardTitle className="text-lg font-bold tracking-tight">
@@ -127,57 +122,59 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
         </button>
       </CardHeader>
 
-      <CardContent className="flex-1 p-0 overflow-hidden">
+      <CardContent className="flex-1 p-0 overflow-hidden" onClick={handleContentClick}>
         <ScrollArea
-          className="h-full p-4 space-y-6"
+          className="h-full p-4"
           ref={scrollAreaRef}
         >
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`flex items-end gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"
-                }`}
-            >
-              {msg.role === "assistant" && (
-                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
-                   <Bot size={20} className='text-primary'/>
-                </Avatar>
-              )}
-              
+          <div className="space-y-6">
+            {messages.map((msg, index) => (
               <div
-                  className={`rounded-2xl px-4 py-3 max-w-[85%] text-sm shadow-md
-                  ${
-                    msg.role === 'user'
-                      ? 'bg-primary text-primary-foreground rounded-br-none'
-                      : 'bg-muted text-muted-foreground rounded-bl-none'
+                key={index}
+                className={`flex items-end gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"
                   }`}
-                >
-                   <div className="prose prose-sm text-inherit" dangerouslySetInnerHTML={{ __html: msg.content }} />
-              </div>
-          
-              {msg.role === "user" && (
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback>
-                    <User size={20} />
-                  </AvatarFallback>
-                </Avatar>
-              )}
-            </div>
-          ))}
-          {isPending && (
-             <div className="flex items-end gap-3 justify-start">
-                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
+              >
+                {msg.role === "assistant" && (
+                  <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
                     <Bot size={20} className='text-primary'/>
-                </Avatar>
-                <div className="rounded-2xl px-4 py-3 max-w-[85%] text-sm shadow-md bg-muted text-muted-foreground rounded-bl-none">
-                    <div className="flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                        <span className="h-2 w-2 rounded-full bg-primary animate-pulse delay-150"></span>
-                        <span className="h-2 w-2 rounded-full bg-primary animate-pulse delay-300"></span>
-                    </div>
+                  </Avatar>
+                )}
+                
+                <div
+                    className={`rounded-2xl px-4 py-3 max-w-[85%] text-sm shadow-md
+                    ${
+                      msg.role === 'user'
+                        ? 'bg-primary text-primary-foreground rounded-br-none'
+                        : 'bg-muted text-muted-foreground rounded-bl-none'
+                    }`}
+                  >
+                    <div className="prose prose-sm text-inherit" dangerouslySetInnerHTML={{ __html: msg.content }} />
                 </div>
-             </div>
-          )}
+            
+                {msg.role === "user" && (
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback>
+                      <User size={20} />
+                    </AvatarFallback>
+                  </Avatar>
+                )}
+              </div>
+            ))}
+            {isPending && (
+              <div className="flex items-end gap-3 justify-start">
+                  <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
+                      <Bot size={20} className='text-primary'/>
+                  </Avatar>
+                  <div className="rounded-2xl px-4 py-3 max-w-[85%] text-sm shadow-md bg-muted text-muted-foreground rounded-bl-none">
+                      <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                          <span className="h-2 w-2 rounded-full bg-primary animate-pulse delay-150"></span>
+                          <span className="h-2 w-2 rounded-full bg-primary animate-pulse delay-300"></span>
+                      </div>
+                  </div>
+              </div>
+            )}
+          </div>
         </ScrollArea>
       </CardContent>
 

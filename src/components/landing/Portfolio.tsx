@@ -23,7 +23,7 @@ import { Separator } from '@/components/ui/separator';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
-const services = [
+export const services = [
   {
     title: 'Vigilancia Fija',
     shortDescription: 'Protección permanente con guardias capacitados para resguardar la integridad de personas y bienes en un punto determinado.',
@@ -83,18 +83,19 @@ const services = [
   },
 ];
 
-type Service = typeof services[0];
+export type Service = typeof services[0];
 
-export default function Portfolio() {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+interface PortfolioProps {
+  onServiceSelect: (serviceTitle: string) => void;
+  selectedService: Service | null;
+  onCloseModal: () => void;
+}
+
+export default function Portfolio({ onServiceSelect, selectedService, onCloseModal }: PortfolioProps) {
 
   const handleOpenModal = (e: React.MouseEvent, service: Service) => {
     e.preventDefault();
-    setSelectedService(service);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedService(null);
+    onServiceSelect(service.title);
   };
 
   return (
@@ -140,12 +141,12 @@ export default function Portfolio() {
       </section>
 
       {selectedService && (
-        <AlertDialog open={!!selectedService} onOpenChange={handleCloseModal}>
-          <AlertDialogContent className="max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0">
-            <AlertDialogHeader className="p-6 pb-4 border-b">
+        <AlertDialog open={!!selectedService} onOpenChange={onCloseModal}>
+          <AlertDialogContent className="max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh]">
+            <AlertDialogHeader className="p-6 pb-4 border-b sticky top-0 bg-card z-10">
               <AlertDialogTitle className="text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
                <AlertDialogCancel asChild className="absolute top-4 right-4 rounded-full w-8 h-8 p-0">
-                  <Button variant="destructive" size="icon" onClick={handleCloseModal}>
+                  <Button variant="destructive" size="icon" onClick={onCloseModal}>
                     <X className="h-4 w-4" />
                     <span className="sr-only">Cerrar</span>
                   </Button>
@@ -153,13 +154,13 @@ export default function Portfolio() {
             </AlertDialogHeader>
             
             <Carousel
-              className="w-full"
+              className="w-full flex-1"
               plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
               opts={{ loop: true }}
             >
-              <CarouselContent>
-                <CarouselItem>
-                  <div className="p-6 space-y-6">
+              <CarouselContent className="h-full">
+                <CarouselItem className="flex flex-col">
+                  <div className="p-6 space-y-6 flex-1">
                     <AlertDialogDescription className="text-base text-muted-foreground">
                         {selectedService.longDescription}
                     </AlertDialogDescription>
@@ -173,8 +174,8 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </CarouselItem>
-                <CarouselItem>
-                  <div className="p-6">
+                <CarouselItem className="flex flex-col">
+                  <div className="p-6 flex-1">
                     <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
                       <Star className="h-5 w-5" />
                       Testimonios de Clientes
@@ -195,12 +196,12 @@ export default function Portfolio() {
                   </div>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="absolute left-2 bottom-2" />
-              <CarouselNext className="absolute right-2 bottom-2" />
+              <CarouselPrevious className="absolute left-2 bottom-4" />
+              <CarouselNext className="absolute right-2 bottom-4" />
             </Carousel>
             
-            <AlertDialogFooter className="p-6 pt-4 border-t">
-              <Button variant="outline" onClick={handleCloseModal} className="rounded-full px-6 w-full sm:w-auto">Cerrar</Button>
+            <AlertDialogFooter className="p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
+              <Button variant="outline" onClick={onCloseModal} className="rounded-full px-6 w-full sm:w-auto">Cerrar</Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
