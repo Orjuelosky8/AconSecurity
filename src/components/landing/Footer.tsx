@@ -21,25 +21,31 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="border-t bg-card text-card-foreground overflow-hidden">
-      <div className="container mx-auto px-4 py-16 sm:py-24">
+      <div className="container mx-auto px-4 py-16 sm:py-20">
         {/* Desktop Footer */}
         <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-center">
           {/* Columna Izquierda: Navegación y Contacto */}
           <div className="flex flex-col items-center lg:items-end text-center lg:text-right space-y-8">
-            <div>
-              <h3 className="font-semibold text-primary mb-4">Navegación</h3>
-              <ul className="space-y-2">
-                {navLinks.map((link) => (
-                   <li key={link.name}>
-                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                          {link.name}
-                      </Link>
-                   </li>
-                ))}
-              </ul>
+             <div className="w-full max-w-xs">
+                 <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+                    <AccordionItem value="item-1" className="border-b-0">
+                        <AccordionTrigger className='font-semibold text-primary text-lg justify-end hover:no-underline'>Navegación</AccordionTrigger>
+                        <AccordionContent>
+                             <ul className="space-y-3 pt-2">
+                                {navLinks.map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                                ))}
+                            </ul>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </div>
             <div>
-               <h3 className="font-semibold text-primary mb-4">Contacto</h3>
+               <h3 className="font-semibold text-primary text-lg mb-4">Contacto</h3>
                <address className="not-italic text-sm text-muted-foreground space-y-2">
                   <div className='flex items-center justify-center lg:justify-end gap-2'>
                     <MapPin size={14}/>
@@ -53,16 +59,19 @@ export default function Footer() {
             </div>
           </div>
           
-          {/* Columna Central: Modelo 3D */}
-          <div className="flex justify-center items-center order-first lg:order-none">
+          {/* Columna Central: Modelo 3D y Mensaje */}
+          <div className="flex flex-col justify-center items-center order-first lg:order-none text-center">
             <div className="w-48 h-48 lg:w-56 lg:h-56">
                <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
             </div>
+            <p className="text-xs text-muted-foreground mt-4 max-w-xs">
+              Protegemos tu mundo con tecnología de vanguardia y un equipo humano comprometido con tu tranquilidad.
+            </p>
           </div>
           
           {/* Columna Derecha: Redes Sociales */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
-            <h3 className="font-semibold text-primary mb-4">Síguenos</h3>
+            <h3 className="font-semibold text-primary text-lg mb-4">Síguenos</h3>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
               {socialLinks.map((social) => (
                 <Link 
@@ -82,9 +91,14 @@ export default function Footer() {
 
         {/* Mobile Footer */}
         <div className="md:hidden flex flex-col items-center text-center space-y-12">
-           <div className="w-40 h-40">
-               <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
-            </div>
+           <div className="flex flex-col justify-center items-center text-center">
+             <div className="w-40 h-40">
+                 <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
+              </div>
+              <p className="text-xs text-muted-foreground mt-4 max-w-xs">
+                Protegemos tu mundo con tecnología de vanguardia y un equipo humano comprometido con tu tranquilidad.
+              </p>
+           </div>
             
             <div className="w-full max-w-sm">
                  <Accordion type="single" collapsible className="w-full">

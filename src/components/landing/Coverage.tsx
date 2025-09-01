@@ -95,20 +95,21 @@ export default function Coverage() {
             <Card className="bg-background">
               <CardContent className="p-2">
                 <div className="max-h-[260px] overflow-y-auto space-y-1 pr-2">
-                  {locations.map((loc) => {
-                    const isActive = selectedCity?.city === loc.city;
-                    return (
-                      <button
-                        key={loc.city}
-                        onClick={() => handleSelect(loc)}
-                        className={`w-full text-left p-3 rounded-md transition-colors text-sm font-medium ${
-                          isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
-                        }`}
-                      >
-                        {loc.city}
-                      </button>
-                    );
-                  })}
+                  {locations
+                    .filter((loc) => loc.city !== "Colombia") // ⬅️ aquí quitamos Colombia
+                    .map((loc) => {
+                      const isActive = selectedCity?.city === loc.city;
+                      return (
+                        <button
+                          key={loc.city}
+                          onClick={() => handleSelect(loc)}
+                          className={`w-full text-left p-3 rounded-md transition-colors text-sm font-medium ${isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                            }`}
+                        >
+                          {loc.city}
+                        </button>
+                      );
+                    })}
                 </div>
               </CardContent>
             </Card>
@@ -125,7 +126,7 @@ export default function Coverage() {
               </div>
             )}
           </div>
-          
+
           {selectedCity && (
             <div className="hidden lg:block w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
               <iframe
@@ -143,22 +144,21 @@ export default function Coverage() {
         </div>
 
         {showSedeMobile && selectedCity && (
-            <div className="mt-4 lg:hidden w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
-                <iframe
-                    key={selectedCity.city + '-streetview-mobile'}
-                    src={selectedCity.srcStreetView || selectedCity.srcMap}
-                    width="100%"
-                    height="100%"
-                    className="border-0"
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                />
-            </div>
+          <div className="mt-4 lg:hidden w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
+            <iframe
+              key={selectedCity.city + '-streetview-mobile'}
+              src={selectedCity.srcStreetView || selectedCity.srcMap}
+              width="100%"
+              height="100%"
+              className="border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         )}
       </div>
     </section>
   );
 }
 
-    
