@@ -18,21 +18,21 @@ import img3 from './../media/tech3.jpg';
 const techData = [
   {
     image: img1,
-    dataAiHint: 'security camera',
-    title: 'Cámara IA de Perímetro',
-    description: 'Nuestras cámaras con inteligencia artificial analizan el video en tiempo real, identificando intrusos, vehículos y comportamientos anómalos con una precisión sin precedentes.',
+    dataAiHint: 'security camera cctv',
+    title: 'CCTV Avanzado con IA',
+    description: 'Utilizamos cámaras de alta resolución con análisis de video inteligente para detectar movimientos y comportamientos sospechosos de forma automatizada, alertando a nuestra central 24/7.',
   },
   {
     image: img2,
-    dataAiHint: 'radar system',
-    title: 'Radar de Detección Terrestre',
-    description: 'El radar ofrece una capa adicional de seguridad, detectando movimiento en cualquier condición climática y de iluminación, inmune a falsas alarmas por animales pequeños o vegetación.',
+    dataAiHint: 'alarm sensor system',
+    title: 'Sistemas de Alarma y Sensores',
+    description: 'Instalamos sensores de movimiento, de apertura y pánicos conectados a nuestra central, que activan alertas inmediatas ante cualquier ingreso no autorizado o emergencia.',
   },
   {
     image: img3,
-    dataAiHint: 'video wall',
-    title: 'Videowall para Centros de Monitoreo',
-    description: 'Visualiza todas tus cámaras y sistemas en un único videowall de alta resolución, permitiendo a nuestros operadores una conciencia situacional completa y una respuesta más rápida.',
+    dataAiHint: 'access control biometric',
+    title: 'Control de Acceso Electrónico',
+    description: 'Implementamos sistemas con tarjetas, biometría o QR para regular y auditar el ingreso a instalaciones, garantizando que solo personal autorizado acceda a zonas restringidas.',
   },
 ];
 
@@ -41,9 +41,9 @@ export default function TechSlider() {
     <section id="tech" className="py-20 sm:py-32 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-primary">Tecnología Avanzada</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Tecnología de Seguridad Implementada</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Equipamiento de punta para una seguridad sin compromisos.
+            Integramos herramientas de punta para mejorar la eficacia de nuestra vigilancia.
           </p>
         </div>
         <Carousel 

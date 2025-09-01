@@ -12,17 +12,17 @@ const timelineData = [
   {
     icon: FileText,
     title: 'Constitución Legal',
-    description: 'Fundada en 2010, Acon Security es una empresa legalmente constituida bajo las leyes colombianas, garantizando transparencia y confianza.',
+    description: 'Fundada en 1996, Acon Security es una empresa legalmente constituida bajo las leyes colombianas, garantizando transparencia y confianza.',
   },
   {
     icon: CheckCircle,
     title: 'Póliza de Responsabilidad Civil',
-    description: 'Contamos con una robusta Póliza de Responsabilidad Civil Extracontractual que ampara todos nuestros servicios y operaciones.',
+    description: 'Contamos con una robusta Póliza de Responsabilidad Civil Extracontractual que ampara todos nuestros servicios y operaciones de seguridad.',
   },
   {
     icon: Building,
-    title: '11 Sedes a Nivel Nacional',
-    description: 'Nuestra presencia en 11 ciudades principales del país nos permite ofrecer una cobertura y respuesta rápida en todo el territorio colombiano.',
+    title: 'Cobertura Nacional',
+    description: 'Nuestra presencia en las ciudades principales del país nos permite ofrecer una cobertura y respuesta rápida en todo el territorio colombiano.',
   },
 ];
 
@@ -57,8 +57,7 @@ export default function AboutUs() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestra Trayectoria</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            {/* Compromiso, legalidad y cobertura que nos respaldan. */}
-            De escoltas a soluciones de riesgo integral.
+            "Servimos por vocación": décadas de experiencia protegiendo hogares, empresas y conjuntos residenciales.
           </p>
         </div>
         <div className="flex trayectoria-container">

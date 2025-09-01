@@ -12,8 +12,8 @@ import { z } from 'zod';
 
 const SolutionAssistantInputSchema = z.object({
   solutionType: z.string().describe('El tipo de solución que busca el usuario (ej. "mi-empresa", "mi-hogar").'),
-  entityType: z.string().describe('El tipo de servicio de seguridad requerido (ej. "vigilancia-fisica", "vigilancia-tecnologica").'),
-  situation: z.string().describe('La situación o problema específico del usuario (ej. "prevencion-robos", "control-acceso").'),
+  entityType: z.string().describe('El tipo de servicio de seguridad requerido (ej. "vigilancia-fija", "vigilancia-movil", "escoltas").'),
+  situation: z.string().describe('La situación o problema específico del usuario (ej. "prevenir-robos", "control-accesos", "proteger-transporte").'),
 });
 export type SolutionAssistantInput = z.infer<typeof SolutionAssistantInputSchema>;
 
@@ -26,7 +26,7 @@ const prompt = ai.definePrompt({
   input: { schema: SolutionAssistantInputSchema },
   output: { format: 'text' },
   prompt: `
-    Eres un asistente virtual experto en seguridad para la empresa "Acon Shield".
+    Eres un asistente virtual experto en seguridad para la empresa "Acon Security", cuyo lema es "Servimos por vocación".
     Tu objetivo es analizar la solicitud del usuario y proporcionar una recomendación clara y útil dentro de una conversación de chat.
 
     Contexto del usuario:
@@ -35,22 +35,22 @@ const prompt = ai.definePrompt({
     - Situación específica: {{{situation}}}
 
     Servicios disponibles y sus enlaces de anclaje:
-    - Vigilancia con Drones: #services
-    - CCTV con IA: #services
-    - Sistemas de Intrusión: #services
-    - Control de Acceso RFID: #services
-    - Detección de Incendios: #services
-    - Guardas de Seguridad: #services
-    - Cobertura Nacional: #coverage
-    - Tecnología Avanzada: #tech
+    - Vigilancia Fija: #services
+    - Vigilancia Móvil: #services
+    - Escolta a Personas: #services
+    - Escolta de Mercancías: #services
+    - Seguridad Electrónica y Monitoreo 24/7: #tech
+    - CCTV Avanzado: #tech
+    - Sistemas de Alarma y Sensores: #tech
+    - Control de Acceso Electrónico: #tech
     - Sobre Nosotros: #about
 
     Instrucciones de respuesta:
-    1. Comienza con un saludo amigable como "¡Hola! Gracias por tu consulta."
+    1. Comienza con un saludo amigable como "¡Hola! Gracias por tu consulta. En Acon Security, servimos por vocación y estamos aquí para ayudarte."
     2. Basado en la información proporcionada, analiza y recomienda 1 o 2 servicios que se ajusten mejor a la necesidad.
-    3. **MUY IMPORTANTE**: Para cada servicio recomendado, incluye un enlace de anclaje HTML (ej. <a href="#services" class="underline text-primary">Vigilancia con Drones</a>).
+    3. **MUY IMPORTANTE**: Para cada servicio recomendado, incluye un enlace de anclaje HTML (ej. <a href="#services" class="underline text-primary">Vigilancia Fija</a>).
     4. Después de las recomendaciones, finaliza SIEMPRE con la pregunta exacta: "¿Quieres una personalización más detallada?".
-    5. La respuesta debe ser concisa, en un solo bloque de texto. No uses markdown, listas con guiones o numeración. Mantén un tono conversacional.
+    5. La respuesta debe ser concisa, en un solo bloque de texto. No uses markdown, listas con guiones o numeración. Mantén un tono conversacional y profesional.
   `,
 });
 

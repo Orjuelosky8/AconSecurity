@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Heart, Globe, Users } from 'lucide-react';
+import { Leaf, ShieldCheck, UserCheck } from 'lucide-react';
 
 import img1 from './../media/responsabilidadSocial1.png';
 import img2 from './../media/responsabilidadSocial2.jpg';
@@ -8,25 +8,25 @@ import img3 from './../media/responsabilidadSocial3.png';
 
 const programs = [
   {
-    icon: Heart,
-    title: 'Programa Sanar',
-    description: 'Apoyamos la recuperación y el bienestar de niños con cáncer, aportando a su tratamiento y calidad de vida.',
+    icon: Leaf,
+    title: 'Sostenibilidad y Medio Ambiente',
+    description: 'Incorporamos prácticas responsables como el uso de vehículos eco-amigables y la optimización de recursos energéticos.',
     image: img1,
-    dataAiHint: 'charity donation'
+    dataAiHint: 'eco friendly vehicle'
   },
   {
-    icon: Globe,
-    title: 'Donaciones a UNICEF',
-    description: 'Contribuimos con UNICEF para proteger los derechos de los niños en Colombia y en todo el mundo.',
+    icon: ShieldCheck,
+    title: 'Convergencia en Ciberseguridad',
+    description: 'Exploramos alianzas para ofrecer soluciones integrales que protegen tanto los activos físicos como la información digital de nuestros clientes.',
     image: img2,
-    dataAiHint: 'children playing'
+    dataAiHint: 'cyber security lock'
   },
   {
-    icon: Users,
-    title: 'Fundación Colombia Chiquita',
-    description: 'Fomentamos el desarrollo y la educación en comunidades vulnerables a través de esta valiosa fundación.',
+    icon: UserCheck,
+    title: 'Capacitación Continua del Talento',
+    description: 'Invertimos en la formación permanente de nuestro personal, garantizando un equipo competente y orientado al servicio de excelencia.',
     image: img3,
-    dataAiHint: 'community building'
+    dataAiHint: 'training session'
   },
 ];
 
@@ -47,9 +47,9 @@ export default function SocialResponsibility() {
 
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-primary">Responsabilidad Social</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Nuestros Pilares Competitivos</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Creemos en un futuro más seguro y próspero para todos.
+            Innovación, responsabilidad y excelencia humana para una seguridad de vanguardia.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

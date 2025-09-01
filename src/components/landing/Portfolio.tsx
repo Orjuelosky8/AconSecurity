@@ -12,39 +12,39 @@ import img5 from './../media/necesidades5.jpg';
 
 const services = [
   {
-    title: 'Protegemos tu hogar con la mejor tecnología',
-    description: 'Soluciones integrales para mantener tu casa segura y conectada, desde alarmas inteligentes hasta CCTV.',
+    title: 'Vigilancia Fija y Control de Acceso',
+    description: 'Protección permanente con guardias capacitados para resguardar la integridad de personas y bienes en un punto determinado.',
     image: img1,
-    dataAiHint: 'family home security',
+    dataAiHint: 'security guard reception',
     link: '#',
     className: 'lg:row-span-2',
   },
   {
-    title: 'Te protegemos en todo momento',
-    description: 'Servicios de acompañamiento y respuesta inmediata para que te sientas seguro dondequiera que estés.',
+    title: 'Vigilancia Móvil y Patrullaje',
+    description: 'Cobertura de áreas extensas mediante rondas constantes en vehículos para una supervisión y respuesta rápida.',
     image: img2,
-    dataAiHint: 'nightlife security',
+    dataAiHint: 'security vehicle patrol',
     link: '#',
   },
   {
-    title: 'Te cuidamos incluso fuera de tu hogar',
-    description: 'Con nuestro botón SOS y la app Acon Shield, la ayuda está a un solo toque de distancia.',
+    title: 'Escolta de Mercancías en Tránsito',
+    description: 'Protección armada de bienes y carga durante su transporte para prevenir robos y asegurar su llegada a destino.',
     image: img3,
-    dataAiHint: 'personal safety app',
+    dataAiHint: 'cargo truck security',
     link: '#',
   },
   {
-    title: 'Rapidez ante una intrusión',
-    description: 'Nuestro equipo de motorizados garantiza la llegada más rápida ante cualquier emergencia.',
+    title: 'Seguridad Electrónica y Monitoreo 24/7',
+    description: 'Nuestra central supervisa cámaras, alarmas y sensores en tiempo real para una respuesta inmediata ante cualquier evento.',
     image: img4,
-    dataAiHint: 'emergency response motorcycle',
+    dataAiHint: 'security control room',
     link: '#',
   },
   {
-    title: 'Expertos y profesionales en seguridad',
-    description: 'Monitoreo 24/7 desde nuestro centro de control con personal altamente capacitado y tecnología de punta.',
+    title: 'Escolta a Personas y Ejecutivos',
+    description: 'Servicio de protección personal especializada para garantizar la integridad física en desplazamientos y actividades diarias.',
     image: img5,
-    dataAiHint: 'security control room',
+    dataAiHint: 'bodyguard executive protection',
     link: '#',
   },
 ];
@@ -54,9 +54,9 @@ export default function Portfolio() {
     <section id="services" className="py-20 sm:py-32 bg-card">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-primary">Soluciones para cada necesidad</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Soluciones Integrales de Seguridad</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Descubre cómo nuestra tecnología y equipo humano trabajan para tu tranquilidad.
+            Combinamos personal experto y tecnología avanzada para ofrecer la protección que necesitas.
           </p>
         </div>
 

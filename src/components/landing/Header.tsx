@@ -66,15 +66,25 @@ export default function Header({ onAssistantClick }: HeaderProps) {
           {/* Asistente Virtual Desktop */}
           <Button
             onClick={onAssistantClick}
-            className="rounded-full shadow-md bg-gradient-to-r from-primary via-indigo-600 to-sky-500 text-primary-foreground font-semibold px-6 py-2 hover:scale-105 transition-transform hidden md:flex text-sm md:text-base"
+            className="
+    hidden md:flex items-center rounded-full font-semibold
+    px-6 py-2 text-sm md:text-base
+    bg-gradient-to-r from-primary via-indigo-700 to-slate-800
+    text-primary-foreground
+    shadow-md transition-all duration-300 ease-out
+    hover:from-indigo-800 hover:via-slate-800 hover:to-primary
+    hover:shadow-lg hover:-translate-y-0.5
+    active:translate-y-0 active:shadow-md
+  "
             style={{
               boxShadow:
-                '0 2px 8px 0 rgba(35, 123, 255, 0.14), 0 1.5px 4px 0 rgba(50, 50, 93, 0.07)'
+                "0 2px 6px rgba(35, 123, 255, 0.18), 0 1px 3px rgba(50, 50, 93, 0.1)"
             }}
           >
             <MessageSquareHeart className="h-5 w-5 opacity-90 lg:mr-2" />
-            <span className='hidden lg:inline'>Asistente Virtual</span>
+            <span className="hidden lg:inline">Asistente Virtual</span>
           </Button>
+
 
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -114,7 +124,16 @@ export default function Header({ onAssistantClick }: HeaderProps) {
                 ))}
                 <Button
                   onClick={handleMobileAssistantClick}
-                  className="w-full mt-8 bg-gradient-to-r from-primary via-indigo-600 to-sky-500 text-primary-foreground shadow-lg rounded-full font-semibold text-base hover:scale-105 transition-transform"
+                  className="
+                    w-full mt-8 rounded-full font-semibold text-base px-6 py-3
+                    bg-gradient-to-r from-primary via-indigo-700 to-slate-800
+                    text-primary-foreground shadow-md
+                    transition-all duration-300 ease-out
+                    hover:from-indigo-800 hover:via-slate-800 hover:to-primary
+                    hover:shadow-lg hover:shadow-indigo-900/30
+                    hover:-translate-y-0.5
+                    active:translate-y-0 active:shadow-md
+                  "
                 >
                   <MessageSquareHeart className="mr-2 h-5 w-5 opacity-90" />
                   Asistente Virtual
