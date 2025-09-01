@@ -170,7 +170,10 @@ export default function Portfolio() {
                 <Separator className="bg-border/50" />
 
                 <div>
-                  <h3 className="text-xl font-semibold text-accent mb-4">Testimonios de Clientes</h3>
+                  <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
+                    <Star className="h-5 w-5" />
+                    Testimonios de Clientes
+                  </h3>
                   <div className="space-y-4">
                     {selectedService.testimonials.map((testimonial, index) => (
                       <div key={index} className="bg-background p-4 rounded-lg border border-border/30">
