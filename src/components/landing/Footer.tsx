@@ -21,10 +21,10 @@ export default function Footer() {
   return (
     <footer className="border-t bg-card text-card-foreground">
       <div className="container mx-auto px-4 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           
           {/* Columna 1: Logo y Descripción */}
-          <div className="md:col-span-1 space-y-4">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
             <AconShieldLogo />
             <p className="text-sm text-muted-foreground">
               Protegiendo tu mundo con tecnología de vanguardia y un equipo humano comprometido.
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
           
           {/* Columna 2: Navegación */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="font-semibold text-primary mb-4">Navegación</h3>
             <ul className="space-y-2">
               {navLinks.map((link) => (
@@ -46,7 +46,7 @@ export default function Footer() {
           </div>
           
           {/* Columna 3: Contacto */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
              <h3 className="font-semibold text-primary mb-4">Contacto</h3>
              <address className="not-italic text-sm text-muted-foreground space-y-2">
                 <p>Oficina Principal, Bogotá, Colombia</p>
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
           
           {/* Columna 4: Redes Sociales */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="font-semibold text-primary mb-4">Síguenos</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
