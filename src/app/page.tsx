@@ -14,14 +14,21 @@ import SocialResponsibility from '@/components/landing/SocialResponsibility';
 import Footer from '@/components/landing/Footer';
 import SolutionForm from '@/components/landing/SolutionForm';
 import Chatbot from '@/components/landing/Chatbot';
-import type { SolutionAssistantInput } from '@/ai/flows/solution-assistant-flow';
+import type { SolutionAssistantInput as SolutionAssistantInitialData } from '@/ai/flows/solution-assistant-flow';
+
+// We create a more specific type for the form data
+type FormSubmitData = {
+  solutionType: string;
+  entityType: string;
+  situation: string;
+};
 
 export default function HomePage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatInitialData, setChatInitialData] = useState<SolutionAssistantInput | null>(null);
+  const [chatInitialData, setChatInitialData] = useState<FormSubmitData | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  const handleFormSubmit = (data: SolutionAssistantInput) => {
+  const handleFormSubmit = (data: FormSubmitData) => {
     setChatInitialData(data);
     setIsChatOpen(true);
   };

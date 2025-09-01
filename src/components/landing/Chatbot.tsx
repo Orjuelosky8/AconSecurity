@@ -11,7 +11,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { solutionAssistant, type SolutionAssistantInput } from "@/ai/flows/solution-assistant-flow";
@@ -21,24 +21,24 @@ type Message = {
   content: string;
 };
 
+type InitialData = {
+  solutionType: string;
+  entityType: string;
+  situation: string;
+} | null;
+
 interface ChatbotProps {
   onClose: () => void;
-  initialData?: SolutionAssistantInput | null;
+  initialData?: InitialData;
   onServiceClick: (serviceTitle: string) => void;
 }
-
-const sampleMessages: Message[] = [
-  {
-    role: "assistant",
-    content: "¡Hola! Soy tu asistente de Acon Shield. ¿En qué puedo ayudarte hoy?",
-  },
-];
 
 export default function Chatbot({ onClose, initialData = null, onServiceClick }: ChatbotProps) {
   const [isPending, startTransition] = useTransition();
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   const handleContentClick = useCallback((e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -52,21 +52,34 @@ export default function Chatbot({ onClose, initialData = null, onServiceClick }:
     }
   }, [onServiceClick]);
 
-  useEffect(() => {
-    if (initialData) {
-      startTransition(async () => {
-        const assistantResponse = await solutionAssistant(initialData);
-        setMessages([
-          {
-            role: "assistant",
-            content: assistantResponse,
-          },
-        ]);
-      });
-    } else {
-      setMessages(sampleMessages);
+  const getAssistantResponse = useCallback(async (history: Message[], firstMessageData?: InitialData) => {
+    const input: SolutionAssistantInput = { history };
+    if (firstMessageData) {
+      input.initialData = firstMessageData;
     }
-  }, [initialData]);
+    
+    const assistantResponse = await solutionAssistant(input);
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: assistantResponse },
+    ]);
+  }, []);
+  
+  useEffect(() => {
+    if (isFirstRender.current) {
+        isFirstRender.current = false;
+        if (initialData) {
+            startTransition(() => getAssistantResponse([], initialData));
+        } else {
+            setMessages([
+                {
+                    role: "assistant",
+                    content: "¡Hola! Soy tu asistente de Acon Security. ¿Cómo puedo ayudarte a proteger lo que más te importa?",
+                },
+            ]);
+        }
+    }
+  }, [initialData, getAssistantResponse]);
 
   useEffect(() => {
     const scrollArea = scrollAreaRef.current;
@@ -83,25 +96,21 @@ export default function Chatbot({ onClose, initialData = null, onServiceClick }:
     if (!userInput.trim() || isPending) return;
 
     const userMessage: Message = { role: "user", content: userInput };
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setUserInput("");
 
-    startTransition(async () => {
-       const botResponse: Message = {
-        role: "assistant",
-        content: "Gracias por los detalles. Un especialista revisará tu caso y se pondrá en contacto contigo. ¿Hay algo más en lo que pueda ayudarte?",
-      };
-      setMessages((prev) => [...prev, botResponse]);
+    startTransition(() => {
+        getAssistantResponse(newMessages);
     });
   };
 
   return (
     <Card className="w-[400px] max-w-full h-[640px] max-h-[85vh] shadow-2xl rounded-2xl flex flex-col border bg-card text-card-foreground">
       <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-br from-primary/80 to-accent/70 text-primary-foreground relative shadow-sm">
-        <Avatar>
-          <AvatarFallback className="bg-transparent">
-            <Bot className="h-6 w-6 text-primary-foreground" />
-          </AvatarFallback>
+        <Avatar className="h-8 w-8 shadow-sm">
+          <AvatarImage src="/images/asistenteACON.png" alt="Asistente Acon Shield" />
+          <AvatarFallback>AS</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
           <CardTitle className="text-lg font-bold tracking-tight">
@@ -114,7 +123,7 @@ export default function Chatbot({ onClose, initialData = null, onServiceClick }:
         </div>
          <button
           onClick={onClose}
-          className="absolute top-1/2 -translate-y-1/2 right-4 z-10 rounded-full p-1.5 hover:bg-black/20 transition-colors flex items-center justify-center"
+          className="absolute right-4 z-10 rounded-full p-1.5 hover:bg-black/20 transition-colors flex items-center justify-center"
           aria-label="Cerrar chatbot"
           type="button"
         >
