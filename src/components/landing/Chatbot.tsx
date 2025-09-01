@@ -98,8 +98,8 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
   };
 
   return (
-    <Card className="w-[380px] max-w-full h-[640px] max-h-[85vh] shadow-2xl rounded-2xl flex flex-col border bg-card text-card-foreground">
-      <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-br from-primary/80 to-accent/70 text-primary-foreground relative">
+    <Card className="w-[400px] max-w-full h-[640px] max-h-[85vh] shadow-2xl rounded-2xl flex flex-col border bg-card text-card-foreground">
+      <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-br from-primary/80 to-accent/70 text-primary-foreground relative shadow-sm">
         <Avatar>
           <AvatarImage
             src="https://placehold.co/40x40.png"
@@ -181,7 +181,7 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
         </ScrollArea>
       </CardContent>
 
-      <CardFooter className="p-3 border-t">
+      <CardFooter className="p-3 border-t bg-background/30 shadow-inner">
         <form
           onSubmit={handleSendMessage}
           className="flex items-center gap-3 w-full"
