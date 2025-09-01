@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -33,40 +34,25 @@ export default function ClientLogos() {
           </p>
         </div>
       </div>
-      <div className="relative w-full overflow-x-auto scrollbar-hide">
+      <div className="relative w-full overflow-x-hidden">
         <div className="flex animate-scroll-x items-center">
           {duplicatedClients.map((client, index) => (
             <div
               key={index}
-              className="
-                flex-shrink-0 
-                px-3 sm:px-6 
-                flex flex-col items-center
-                "
-              style={{
-                maxWidth: '200px',
-                minWidth: '180px',
-                height: '100px',
-              }}
+              className="flex-shrink-0 mx-4 w-40 h-24 flex justify-center items-center"
             >
               <a
                 href={client.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex justify-center items-center w-full h-full"
+                className="relative w-full h-full"
               >
                 <Image
                   src={client.logoUrl}
                   alt={`Logo de ${client.name}`}
-                  width={200}
-                  height={100}
+                  fill
                   className="object-contain grayscale hover:grayscale-0 transition-all duration-300"
                   data-ai-hint={client.dataAiHint}
-                  style={{
-                    maxHeight: '54px',
-                    width: 'auto',
-                    maxWidth: '90%',
-                  }}
                 />
               </a>
             </div>

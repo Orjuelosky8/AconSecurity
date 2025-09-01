@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from 'react';
-import { AconShieldLogo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X, MessageSquareHeart } from 'lucide-react';
@@ -73,7 +72,7 @@ export default function Header({ onAssistantClick }: HeaderProps) {
                 '0 2px 8px 0 rgba(35, 123, 255, 0.14), 0 1.5px 4px 0 rgba(50, 50, 93, 0.07)'
             }}
           >
-            <MessageSquareHeart className="mr-2 h-5 w-5 opacity-90" />
+            <MessageSquareHeart className="h-5 w-5 opacity-90 lg:mr-2" />
             <span className='hidden lg:inline'>Asistente Virtual</span>
           </Button>
 

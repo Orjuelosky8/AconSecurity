@@ -46,8 +46,6 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt, rotationPer
         src={src}
         ios-src={iosSrc}
         alt={alt}
-        ar
-        ar-modes="webxr scene-viewer quick-look"
         camera-controls
         auto-rotate
         rotation-per-second={rotationPerSecond}

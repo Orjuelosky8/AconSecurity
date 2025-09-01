@@ -81,7 +81,7 @@ export default function Portfolio() {
                     {service.title}
                   </h3>
                   
-                  <div className="mt-4 transition-all duration-500 ease-in-out transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                  <div className="mt-4 transition-all duration-500 ease-in-out transform opacity-0 group-hover:opacity-100">
                     <p className="text-primary-foreground/90">{service.description}</p>
                     <div className="mt-4 flex items-center font-semibold text-accent">
                       Conoce más <ArrowRight className="ml-2 h-4 w-4" />
