@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -7,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X, MessageSquareHeart } from 'lucide-react';
 import Link from 'next/link';
+import './../styles/header.css';
 
 const navItems = [
   { name: 'Sobre nosotros', href: '/#about' },
@@ -26,62 +26,92 @@ export default function Header({ onAssistantClick }: HeaderProps) {
   const handleMobileAssistantClick = () => {
     setIsMenuOpen(false);
     onAssistantClick();
-  }
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-2xl items-center">
-        <div className="ml-[15px] mt-[5px] mb-[5px] mr-4 flex">
-          <Link href="/#home" className="mr-6 flex items-center space-x-2">
-            <AconShieldLogo className="h-7 w-auto ml-[25px]" />
+    <header className="sticky top-0 z-50 w-full bg-background/60 backdrop-blur-md shadow-lg transition-all border-b border-border/40">
+      <div className="container flex items-center h-[60px] md:h-[74px] max-w-screen-2xl px-4 md:px-8">
+        {/* Logo con animación */}
+        <div className="mr-8 flex items-center">
+          <Link
+            href="/#home"
+            className="flex items-center group hover:scale-105 transition-transform duration-150"
+          >
+            <AconShieldLogo className="h-8 w-auto drop-shadow-md transition-all group-hover:drop-shadow-xl" />
           </Link>
+          <span className="hidden md:inline-block h-7 w-px mx-6 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full" />
         </div>
-        
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+
+        {/* Nav Desktop */}
+        <nav className="hidden md:flex items-center gap-8 text-base font-semibold">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60 font-medium"
+              className="relative text-foreground/80 hover:text-primary transition-colors duration-200 px-1 py-0.5 after:content-[''] after:block after:h-[2.5px] after:w-0 after:bg-gradient-to-r after:from-primary after:to-indigo-400 after:rounded-full after:transition-all after:duration-300 hover:after:w-full"
             >
               {item.name}
             </a>
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button onClick={onAssistantClick} className="rounded-full shadow-lg color3 text-primary-foreground hover:bg-primary/90 hidden md:flex">
-              <MessageSquareHeart className="mr-2 h-5 w-5" />
-              Asistente Virtual
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Actions */}
+        <div className="flex items-center space-x-2">
+          {/* Asistente Virtual Desktop */}
+          <Button
+            onClick={onAssistantClick}
+            className="rounded-full shadow-md bg-gradient-to-r from-primary via-indigo-600 to-sky-500 text-primary-foreground font-semibold px-6 py-2 hover:scale-105 transition-transform hidden md:flex text-sm md:text-base"
+            style={{
+              boxShadow:
+                '0 2px 8px 0 rgba(35, 123, 255, 0.14), 0 1.5px 4px 0 rgba(50, 50, 93, 0.07)'
+            }}
+          >
+            <MessageSquareHeart className="mr-2 h-5 w-5 opacity-90" />
+            Asistente Virtual
           </Button>
 
+          {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" className="md:hidden hover:bg-primary/5">
+                <Menu className="h-7 w-7" />
                 <span className="sr-only">Abrir menú</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
-              <div className="flex justify-between items-center p-4 border-b">
-                 <AconShieldLogo className="h-7 w-auto" />
-                 <Button variant="ghost" onClick={() => setIsMenuOpen(false)}>
-                    <X className="h-6 w-6" />
-                    <span className="sr-only">Cerrar menú</span>
-                 </Button>
+            <SheetContent
+              side="right"
+              className="w-[90vw] max-w-[380px] bg-background/80 backdrop-blur-xl shadow-2xl border-l border-border animate-slide-in rounded-l-3xl"
+            >
+              <div className="flex justify-between items-center p-4 border-b border-border/30">
+                <AconShieldLogo className="h-8 w-auto" />
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="hover:bg-primary/10"
+                >
+                  <X className="h-6 w-6" />
+                  <span className="sr-only">Cerrar menú</span>
+                </Button>
               </div>
-              <nav className="flex flex-col p-4 space-y-4">
+              <nav className="flex flex-col p-6 space-y-5">
                 {navItems.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
+                    className="text-lg font-semibold text-foreground/90 hover:text-primary transition-colors duration-200"
                   >
                     {item.name}
                   </a>
                 ))}
-                <Button onClick={handleMobileAssistantClick} className="w-full mt-4 color1">
+                <Button
+                  onClick={handleMobileAssistantClick}
+                  className="w-full mt-8 bg-gradient-to-r from-primary via-indigo-600 to-sky-500 text-primary-foreground shadow-lg rounded-full font-semibold text-base hover:scale-105 transition-transform"
+                >
+                  <MessageSquareHeart className="mr-2 h-5 w-5 opacity-90" />
                   Asistente Virtual
                 </Button>
               </nav>

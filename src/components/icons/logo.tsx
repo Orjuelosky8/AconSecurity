@@ -48,8 +48,7 @@ export function AconShieldLogo(props: Omit<React.ComponentProps<typeof Image>, '
       <Image
         src={logo}
         alt="Acon Shield Logo"
-        layout="fill"
-        objectFit="contain"
+        style={{ objectFit: 'cover' }}
       />
       {/* <div style={{
         position: 'absolute',
