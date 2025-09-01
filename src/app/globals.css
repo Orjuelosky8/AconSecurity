@@ -127,6 +127,7 @@ html, body {
   background: var(--background, #101214);
   color: var(--foreground, #fff);
   scroll-behavior: smooth;
+  /* overflow-x: visible !important; */
 }
 *,
 *::before,

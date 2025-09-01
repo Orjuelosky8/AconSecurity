@@ -1,6 +1,6 @@
-import { AconShieldLogo } from '@/components/icons/logo';
-import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
+import ModelViewer from '@/components/ModelViewer';
 
 const socialLinks = [
   { name: 'Facebook', icon: Facebook, href: '#' },
@@ -19,48 +19,64 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-card text-card-foreground">
-      <div className="container mx-auto px-4 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+    <footer className="border-t bg-card text-card-foreground overflow-hidden">
+      <div className="container mx-auto px-4 py-16 sm:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-center">
           
-          {/* Columna 1: Logo y Descripción */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-            <AconShieldLogo />
-            <p className="text-sm text-muted-foreground">
-              Protegiendo tu mundo con tecnología de vanguardia y un equipo humano comprometido.
-            </p>
+          {/* Columna Izquierda: Navegación y Contacto */}
+          <div className="flex flex-col items-center lg:items-end text-center lg:text-right space-y-8">
+            <div>
+              <h3 className="font-semibold text-primary mb-4">Navegación</h3>
+              <ul className="space-y-2">
+                {navLinks.map((link) => (
+                   <li key={link.name}>
+                      <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                          {link.name}
+                      </Link>
+                   </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+               <h3 className="font-semibold text-primary mb-4">Contacto</h3>
+               <address className="not-italic text-sm text-muted-foreground space-y-2">
+                  <div className='flex items-center justify-center lg:justify-end gap-2'>
+                    <MapPin size={14}/>
+                    <span>Cra. 64 #94A-59, Bogotá</span>
+                  </div>
+                  <div className='flex items-center justify-center lg:justify-end gap-2'>
+                    <Phone size={14}/>
+                    <span>(601) 123-4567</span>
+                  </div>
+               </address>
+            </div>
           </div>
           
-          {/* Columna 2: Navegación */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-semibold text-primary mb-4">Navegación</h3>
-            <ul className="space-y-2">
-              {navLinks.map((link) => (
-                 <li key={link.name}>
-                    <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                        {link.name}
-                    </Link>
-                 </li>
-              ))}
-            </ul>
+          {/* Columna Central: Modelo 3D */}
+          <div className="flex justify-center items-center order-first lg:order-none">
+            <div className="w-48 h-48 lg:w-56 lg:h-56">
+               <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
+            </div>
           </div>
           
-          {/* Columna 3: Contacto */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-             <h3 className="font-semibold text-primary mb-4">Contacto</h3>
-             <address className="not-italic text-sm text-muted-foreground space-y-2">
-                <p>Oficina Principal, Bogotá, Colombia</p>
-                <p>Tel: (601) 123-4567</p>
-             </address>
-          </div>
-          
-          {/* Columna 4: Redes Sociales */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          {/* Columna Derecha: Redes Sociales */}
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
             <h3 className="font-semibold text-primary mb-4">Síguenos</h3>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
               {socialLinks.map((social) => (
-                <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-transform duration-300 hover:scale-110">
+                <Link 
+                  key={social.name} 
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="
+                    p-3 bg-background rounded-lg text-muted-foreground 
+                    hover:text-primary hover:bg-muted transition-all duration-500
+                    shadow-[4px_4px_0px_0px_hsl(var(--primary))]
+                    hover:shadow-[2px_2px_0px_0px_hsl(var(--primary))]
+                    hover:rotate-[360deg]"
+                  style={{ transition: 'transform 0.7s ease, box-shadow 0.3s ease' }}
+                >
                     <social.icon className="h-6 w-6" />
                     <span className="sr-only">{social.name}</span>
                 </Link>
