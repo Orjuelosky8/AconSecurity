@@ -37,7 +37,9 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             href="/#home"
             className="flex items-center group hover:scale-105 transition-transform duration-150"
           >
-            <AconShieldLogo className="h-8 w-auto drop-shadow-md transition-all group-hover:drop-shadow-xl" />
+            <div className='w-20 h-12'>
+              <AconShieldLogo />
+            </div>
           </Link>
           <span className="hidden md:inline-block h-7 w-px mx-6 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full" />
         </div>
@@ -86,7 +88,9 @@ export default function Header({ onAssistantClick }: HeaderProps) {
               className="w-[90vw] max-w-[380px] bg-background/80 backdrop-blur-xl shadow-2xl border-l border-border animate-slide-in rounded-l-3xl"
             >
               <div className="flex justify-between items-center p-4 border-b border-border/30">
-                <AconShieldLogo className="h-8 w-auto" />
+                <div className='w-20 h-12'>
+                  <AconShieldLogo />
+                </div>
                 <Button
                   variant="ghost"
                   onClick={() => setIsMenuOpen(false)}
