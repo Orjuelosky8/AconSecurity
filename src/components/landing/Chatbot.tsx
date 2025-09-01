@@ -109,7 +109,7 @@ export default function Chatbot({ onClose, initialData = null, onServiceClick }:
     <Card className="w-[400px] max-w-full h-[640px] max-h-[85vh] shadow-2xl rounded-2xl flex flex-col border bg-card text-card-foreground">
       <CardHeader className="flex flex-row items-center gap-4 p-4 border-b bg-gradient-to-br from-primary/80 to-accent/70 text-primary-foreground relative shadow-sm">
         <Avatar className="h-8 w-8 shadow-sm">
-          <AvatarImage src="/images/asistenteACON.png" alt="Asistente Acon Shield" />
+          <AvatarImage src="/images/AsistenteACON.png" alt="Asistente Acon Shield" />
           <AvatarFallback>AS</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">

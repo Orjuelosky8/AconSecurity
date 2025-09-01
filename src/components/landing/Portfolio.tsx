@@ -16,12 +16,12 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const services = [
   {
@@ -45,7 +45,7 @@ export const services = [
     dataAiHint: 'security vehicle patrol',
     highlight: 'Nuestra flota de patrullas está equipada con GPS y comunicación directa con la central para una respuesta coordinada en menos de 5 minutos.',
     testimonials: [
-        { name: 'Parque Industrial ZETA', comment: 'Las rondas motorizadas han sido clave para prevenir el vandalismo en nuestras instalaciones. Muy eficaces.' },
+      { name: 'Parque Industrial ZETA', comment: 'Las rondas motorizadas han sido clave para prevenir el vandalismo en nuestras instalaciones. Muy eficaces.' },
     ],
   },
   {
@@ -54,9 +54,9 @@ export const services = [
     longDescription: 'Protección armada de bienes y carga durante su transporte para prevenir robos o ataques a convoyes. Desplegamos esquemas de escolta de vehículos de carga con personal entrenado para salvaguardar mercancías valiosas en rutas urbanas y carreteras, incluyendo coordinación con autoridades y monitoreo en tiempo real.',
     image: img3,
     dataAiHint: 'cargo truck security',
-     highlight: 'Contamos con una tasa de éxito del 99.8% en la entrega segura de mercancías valiosas en rutas de alto riesgo.',
+    highlight: 'Contamos con una tasa de éxito del 99.8% en la entrega segura de mercancías valiosas en rutas de alto riesgo.',
     testimonials: [
-        { name: 'Logística Express', comment: 'La seguridad que Acon brinda a nuestra carga es insuperable. Su planeación y ejecución son impecables.' },
+      { name: 'Logística Express', comment: 'La seguridad que Acon brinda a nuestra carga es insuperable. Su planeación y ejecución son impecables.' },
     ],
   },
   {
@@ -67,7 +67,7 @@ export const services = [
     dataAiHint: 'security control room',
     highlight: 'Nuestra central de monitoreo procesa más de 1,000 eventos diarios con un tiempo de respuesta promedio de 30 segundos.',
     testimonials: [
-        { name: 'Centro Comercial Gran Plaza', comment: 'El monitoreo 24/7 nos ha permitido anticipar y resolver situaciones antes de que escalen. Es un servicio indispensable.' },
+      { name: 'Centro Comercial Gran Plaza', comment: 'El monitoreo 24/7 nos ha permitido anticipar y resolver situaciones antes de que escalen. Es un servicio indispensable.' },
     ],
   },
   {
@@ -76,9 +76,9 @@ export const services = [
     longDescription: 'Ofrecemos seguridad cercana para ejecutivos, funcionarios o particulares que requieran protección especializada. Nuestros escoltas (armados o sin arma) acompañan al cliente y planifican su seguridad en desplazamientos y actividades diarias, garantizando la integridad física del protegido mediante planes personalizados y personal entrenado.',
     image: img5,
     dataAiHint: 'bodyguard executive protection',
-     highlight: 'Nuestros escoltas son bilingües y entrenados en manejo defensivo y evasivo, garantizando seguridad en cualquier escenario.',
+    highlight: 'Nuestros escoltas son bilingües y entrenados en manejo defensivo y evasivo, garantizando seguridad en cualquier escenario.',
     testimonials: [
-        { name: 'CEO de Tech Corp', comment: 'El profesionalismo y discreción del equipo de escoltas de Acon es excepcional. Me siento seguro en todo momento.' },
+      { name: 'CEO de Tech Corp', comment: 'El profesionalismo y discreción del equipo de escoltas de Acon es excepcional. Me siento seguro en todo momento.' },
     ],
   },
 ];
@@ -142,70 +142,82 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
 
       {selectedService && (
         <AlertDialog open={!!selectedService} onOpenChange={onCloseModal}>
-          <AlertDialogContent className="max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh]">
-            <AlertDialogHeader className="p-6 pb-4 border-b sticky top-0 bg-card z-10">
-              <AlertDialogTitle className="text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
-               <AlertDialogCancel asChild className="absolute top-4 right-4 rounded-full w-8 h-8 p-0">
-                  <Button variant="destructive" size="icon" onClick={onCloseModal}>
-                    <X className="h-4 w-4" />
-                    <span className="sr-only">Cerrar</span>
-                  </Button>
-              </AlertDialogCancel>
+          <AlertDialogContent className="w-full max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]">
+            <AlertDialogHeader className="p-4 sm:p-6 pb-4 border-b sticky top-0 bg-card z-10">
+              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
+              <Button variant="destructive" size="icon" onClick={onCloseModal} className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full w-8 h-8 p-0">
+                <X className="h-4 w-4" />
+                <span className="sr-only">Cerrar</span>
+              </Button>
             </AlertDialogHeader>
-            
+
             <Carousel
-              className="w-full flex-1"
+              className="w-full flex-1 relative"
               plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
               opts={{ loop: true }}
             >
               <CarouselContent className="h-full">
                 <CarouselItem className="flex flex-col">
-                  <div className="p-6 space-y-6 flex-1">
-                    <AlertDialogDescription className="text-base text-muted-foreground">
+                  <ScrollArea className="flex-1">
+                    <div className="p-4 sm:p-6 space-y-6">
+                      <AlertDialogDescription className="text-base text-muted-foreground">
                         {selectedService.longDescription}
-                    </AlertDialogDescription>
-                    <Separator className="bg-border/50" />
-                    <div>
-                      <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
-                        <ThumbsUp className="h-5 w-5" />
-                        Destacado
-                      </h3>
-                      <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">"{selectedService.highlight}"</p>
+                      </AlertDialogDescription>
+                      <Separator className="bg-border/50" />
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold text-accent mb-4 flex items-center gap-2">
+                          <ThumbsUp className="h-5 w-5" />
+                          Destacado
+                        </h3>
+                        <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">"{selectedService.highlight}"</p>
+                      </div>
                     </div>
-                  </div>
+                  </ScrollArea>
                 </CarouselItem>
                 <CarouselItem className="flex flex-col">
-                  <div className="p-6 flex-1">
-                    <h3 className="text-xl font-semibold text-accent mb-4 flex items-center gap-2">
-                      <Star className="h-5 w-5" />
-                      Testimonios de Clientes
-                    </h3>
-                    <div className="space-y-4">
-                      {selectedService.testimonials.map((testimonial, index) => (
-                        <div key={index} className="bg-background p-4 rounded-lg border border-border/30">
-                          <div className="flex items-center mb-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                            ))}
+                  <ScrollArea className="flex-1">
+                    <div className="p-4 sm:p-6">
+                      <h3 className="text-lg sm:text-xl font-semibold text-accent mb-4 flex items-center gap-2">
+                        <Star className="h-5 w-5" />
+                        Testimonios de Clientes
+                      </h3>
+                      <div className="space-y-4">
+                        {selectedService.testimonials.map((testimonial, index) => (
+                          <div key={index} className="bg-background p-4 rounded-lg border border-border/30">
+                            <div className="flex items-center mb-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                              ))}
+                            </div>
+                            <p className="text-muted-foreground italic mb-2">"{testimonial.comment}"</p>
+                            <p className="text-right font-semibold text-foreground text-sm">- {testimonial.name}</p>
                           </div>
-                          <p className="text-muted-foreground italic mb-2">"{testimonial.comment}"</p>
-                          <p className="text-right font-semibold text-foreground text-sm">- {testimonial.name}</p>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </ScrollArea>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="absolute left-2 bottom-4" />
-              <CarouselNext className="absolute right-2 bottom-4" />
+              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
             </Carousel>
-            
-            <AlertDialogFooter className="p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
-              <Button variant="outline" onClick={onCloseModal} className="rounded-full px-6 w-full sm:w-auto">Cerrar</Button>
+
+
+            <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
+              <Button
+                variant="outline"
+                onClick={onCloseModal}
+                className="w-full sm:w-auto"
+              >
+                Cerrar
+              </Button>
             </AlertDialogFooter>
+
           </AlertDialogContent>
         </AlertDialog>
       )}
     </>
   );
 }
+
+    
