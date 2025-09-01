@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -38,11 +39,11 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             href="/#home"
             className="flex items-center group hover:scale-105 transition-transform duration-150"
           >
-            <div className='w-20 h-12'>
-            <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
+            <div className='w-24 h-16'>
+              <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" rotationPerSecond='30deg' />
             </div>
           </Link>
-          <span className="hidden md:inline-block h-7 w-px mx-6 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full" />
+          <span className="hidden lg:inline-block h-7 w-px mx-6 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full" />
         </div>
 
         {/* Nav Desktop */}
@@ -73,7 +74,7 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             }}
           >
             <MessageSquareHeart className="mr-2 h-5 w-5 opacity-90" />
-            Asistente Virtual
+            <span className='hidden lg:inline'>Asistente Virtual</span>
           </Button>
 
           {/* Mobile Menu */}
@@ -86,11 +87,11 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-[90vw] max-w-[380px] bg-background/80 backdrop-blur-xl shadow-2xl border-l border-border animate-slide-in rounded-l-3xl"
+              className="w-[90vw] max-w-[380px] bg-background/80 backdrop-blur-xl shadow-2xl border-l border-border animate-slide-in rounded-l-3xl p-0"
             >
               <div className="flex justify-between items-center p-4 border-b border-border/30">
                 <div className='w-20 h-12'>
-                  <AconShieldLogo />
+                  <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" rotationPerSecond='30deg' />
                 </div>
                 <Button
                   variant="ghost"

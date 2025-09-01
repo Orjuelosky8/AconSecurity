@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Script from 'next/script';
 
 // This type definition needs to be at the top level
@@ -17,10 +17,12 @@ interface ModelViewerProps {
   src: string;
   iosSrc?: string;
   alt: string;
+  rotationPerSecond?: string;
 }
 
-const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
+const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt, rotationPerSecond = "10deg" }) => {
   const [isClient, setIsClient] = useState(false);
+  const modelViewerRef = useRef(null);
 
   useEffect(() => {
     // This hook ensures the component only renders on the client side
@@ -28,7 +30,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
   }, []);
 
   if (!isClient) {
-    // Render a placeholder or nothing on the server
+    // Render a placeholder or nothing on the server to prevent hydration mismatch
     return <div style={{ width: "100%", height: "100%" }} />;
   }
 
@@ -40,6 +42,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
         strategy="lazyOnload"
       />
       <model-viewer
+        ref={modelViewerRef}
         src={src}
         ios-src={iosSrc}
         alt={alt}
@@ -47,6 +50,7 @@ const ModelViewer: React.FC<ModelViewerProps> = ({ src, iosSrc, alt }) => {
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
         auto-rotate
+        rotation-per-second={rotationPerSecond}
         shadow-intensity="1"
         environment-image="neutral"
         style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}
