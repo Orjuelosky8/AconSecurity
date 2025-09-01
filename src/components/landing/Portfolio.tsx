@@ -145,7 +145,7 @@ export default function Portfolio() {
             <AlertDialogHeader className="p-6 pb-4 border-b">
               <AlertDialogTitle className="text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
                <AlertDialogCancel asChild className="absolute top-4 right-4 rounded-full w-8 h-8 p-0">
-                  <Button variant="ghost" onClick={handleCloseModal}>
+                  <Button variant="destructive" size="icon" onClick={handleCloseModal}>
                     <X className="h-4 w-4" />
                     <span className="sr-only">Cerrar</span>
                   </Button>
@@ -195,8 +195,8 @@ export default function Portfolio() {
                   </div>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
-              <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
+              <CarouselPrevious className="absolute left-2 bottom-2" />
+              <CarouselNext className="absolute right-2 bottom-2" />
             </Carousel>
             
             <AlertDialogFooter className="p-6 pt-4 border-t">
