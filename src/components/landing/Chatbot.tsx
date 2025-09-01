@@ -53,7 +53,7 @@ const sampleMessages: Message[] = [
 
 export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
   const [isPending, startTransition] = useTransition();
-  const [messages, setMessages] = 'use client' ? useState<Message[]>([]) : React.useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -69,12 +69,7 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
         ]);
       });
     } else {
-       setMessages([
-        {
-          role: "assistant",
-          content: "¡Hola! Soy tu asistente de Acon Shield. ¿En qué puedo ayudarte hoy?",
-        },
-      ]);
+       setMessages(sampleMessages);
     }
   }, [initialData]);
 
@@ -144,7 +139,7 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
                 }`}
             >
               {msg.role === "assistant" && (
-                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm">
+                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
                    <Bot size={20} className='text-primary'/>
                 </Avatar>
               )}
@@ -171,7 +166,7 @@ export default function Chatbot({ onClose, initialData = null }: ChatbotProps) {
           ))}
           {isPending && (
              <div className="flex items-end gap-3 justify-start">
-                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm">
+                <Avatar className="h-8 w-8 bg-muted text-muted-foreground self-start shadow-sm flex items-center justify-center">
                     <Bot size={20} className='text-primary'/>
                 </Avatar>
                 <div className="rounded-2xl px-4 py-3 max-w-[85%] text-sm shadow-md bg-muted text-muted-foreground rounded-bl-none">
