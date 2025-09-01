@@ -12,11 +12,11 @@ import { z } from 'zod';
 
 const knowledgeBase = `
 Servicios principales de Acon Security:
-- Vigilancia fija (seguridad estática): Protección permanente con guardias capacitados en puestos fijos (accesos, recepciones) para prevenir, disuadir y responder a amenazas en instalaciones corporativas, residenciales o industriales.
-- Vigilancia móvil (patrullaje motorizado): Cobertura de áreas extensas mediante rondas constantes en vehículos o motocicletas para supervisar perímetros y responder rápidamente.
-- Escoltas a personas (protección personal): Servicio de seguridad cercana para ejecutivos y particulares, con personal entrenado en técnicas de protección y reacción.
-- Escolta de mercancías (seguridad en tránsito): Protección armada de bienes y carga durante su transporte para prevenir robos, incluyendo monitoreo en tiempo real.
-- Seguridad electrónica y monitoreo 24/7: Operación de una central de monitoreo que supervisa cámaras, alarmas y sensores en tiempo real para una respuesta inmediata.
+- Vigilancia Fija: Protección permanente con guardias capacitados en puestos fijos (accesos, recepciones) para prevenir, disuadir y responder a amenazas en instalaciones corporativas, residenciales o industriales.
+- Vigilancia Móvil: Cobertura de áreas extensas mediante rondas constantes en vehículos o motocicletas para supervisar perímetros y responder rápidamente.
+- Escolta a Personas: Servicio de seguridad cercana para ejecutivos y particulares, con personal entrenado en técnicas de protección y reacción.
+- Escolta de Mercancías: Protección armada de bienes y carga durante su transporte para prevenir robos, incluyendo monitoreo en tiempo real.
+- Seguridad Electrónica y Monitoreo 24/7: Operación de una central de monitoreo que supervisa cámaras, alarmas y sensores en tiempo real para una respuesta inmediata.
 
 Tecnologías de seguridad implementadas:
 - Circuito Cerrado de Televisión (CCTV) avanzado: Cámaras de alta resolución con análisis de video e IA para detectar movimientos y comportamientos sospechosos.
@@ -61,7 +61,7 @@ const prompt = ai.definePrompt({
         *   Analiza los datos de 'initialData' (solutionType, entityType, situation).
         *   Comienza con un saludo amigable: "¡Hola! Gracias por tu consulta. En Acon Security, servimos por vocación y estamos aquí para ayudarte."
         *   Basado en la información proporcionada, recomienda 1 o 2 servicios que se ajusten mejor a la necesidad. Sé específico.
-        *   **MUY IMPORTANTE**: Para cada servicio recomendado, genera un enlace con el atributo 'data-service' que contenga el nombre EXACTO del servicio. Ejemplo: <a href="#" data-service="Vigilancia Fija" class="underline text-primary">Vigilancia Fija</a>.
+        *   **MUY IMPORTANTE**: Para cada servicio recomendado, genera un enlace con el atributo 'data-service' que contenga el nombre EXACTO del servicio como aparece en la base de conocimiento. Ejemplos: <a href="#" data-service="Vigilancia Fija" class="underline text-primary">Vigilancia Fija</a> o <a href="#" data-service="Seguridad Electrónica y Monitoreo 24/7" class="underline text-primary">Seguridad Electrónica y Monitoreo 24/7</a>.
         *   Finaliza SIEMPRE con la pregunta exacta: "¿Quieres una personalización más detallada o tienes alguna otra pregunta?".
 
     2.  **Si hay historial de conversación:**
