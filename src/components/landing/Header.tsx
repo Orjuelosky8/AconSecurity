@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X, MessageSquareHeart } from 'lucide-react';
 import Link from 'next/link';
 import './../styles/header.css';
+import ModelViewer from '@/components/ModelViewer';
 
 const navItems = [
   { name: 'Sobre nosotros', href: '/#about' },
@@ -38,7 +39,7 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             className="flex items-center group hover:scale-105 transition-transform duration-150"
           >
             <div className='w-20 h-12'>
-              <AconShieldLogo />
+            <ModelViewer src="/models/logo.glb" alt="Acon Shield 3D Logo" />
             </div>
           </Link>
           <span className="hidden md:inline-block h-7 w-px mx-6 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full" />
