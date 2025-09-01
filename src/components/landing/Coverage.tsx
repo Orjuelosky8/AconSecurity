@@ -1,12 +1,15 @@
 
 "use client";
 
-import { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Phone, MapPin } from 'lucide-react';
 
+type City = (typeof locations)[number];
+
 const locations = [
+  { city: 'Colombia', phone: '601-2533350', srcStreetView: '', srcMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16258059.334388923!2d-85.0247340597953!3d5.819933097124244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e15a43aae1594a3%3A0x9a0d9a04eff2a340!2sColombia!5e0!3m2!1ses!2sco!4v1756743291853!5m2!1ses!2sco' },
   { city: 'Bogotá', phone: '601-2533350', srcStreetView: 'https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1756135187682!5m2!1ses-419!2sco!6m8!1m7!1sIWmgtxGosG_um-binBiz2A!2m2!1d4.68572149786487!2d-74.07032565195475!3f289.5994100138774!4f1.6920683225827702!5f1.5362075765590846', srcMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1988.2422244786485!2d-74.07040409814576!3d4.6855462093220455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9add93864193%3A0xbe86040ead845819!2sAcon%20Security%20Ltda!5e0!3m2!1ses-419!2sco!4v1756097403382!5m2!1ses-419!2sco' },
   { city: 'Cota', phone: '601-2533350', srcStreetView: 'https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1756134907700!5m2!1ses-419!2sco!6m8!1m7!1sgxTqo-lWCsDmjH21WIULTA!2m2!1d4.809917058050402!2d-74.10096324569186!3f140.39562412442672!4f12.331251193563574!5f0.782086597462746', srcMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d496.97075011461914!2d-74.10108899160342!3d4.810194376199249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f86c1d6cbb6c9%3A0x1e73ccfa97d5dd94!2sTv.%204%20%2312%2009%2C%20Cota%2C%20Cundinamarca!5e0!3m2!1ses-419!2sco!4v1756133128532!5m2!1ses-419!2sco' },
   { city: 'Medellín', phone: '604-123-4567', srcStreetView: 'https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1756133239033!5m2!1ses-419!2sco!6m8!1m7!1solB_XP46-vjE2n82pdiTVw!2m2!1d6.249223549003107!2d-75.60954557024175!3f46.84507401743202!4f10.830613133339!5f0.4662199846454126', srcMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.109520908757!2d-75.61209132561132!3d6.249296726290297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442982abfe775d%3A0xfd93d5fdc720f0a5!2sCl.%2039%20%23%2088-110%2C%20Santa%20Monica%2C%20Medell%C3%ADn%2C%20La%20Am%C3%A9rica%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses-419!2sco!4v1756135370106!5m2!1ses-419!2sco' },
@@ -22,158 +25,140 @@ const locations = [
 ];
 
 export default function Coverage() {
-    const mountRef = useRef<HTMLDivElement>(null);
-    const [selectedCity, setSelectedCity] = useState(locations[0]);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [showSedeMobile, setShowSedeMobile] = useState(false);
 
-    useEffect(() => {
-        if (typeof window === 'undefined' || !mountRef.current) return;
-        const currentMount = mountRef.current;
-    
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.set(0, 1.5, 3);
-        camera.lookAt(0,0,0);
-    
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-        currentMount.appendChild(renderer.domElement);
-    
-        // Placeholder for Colombia map model. Replace with GLTFLoader and your model in /public/models/map/colombia.glb
-        const mapGeometry = new THREE.PlaneGeometry(3, 4);
-        const mapMaterial = new THREE.MeshStandardMaterial({ color: 0x085f58, flatShading: true });
-        const mapPlane = new THREE.Mesh(mapGeometry, mapMaterial);
-        mapPlane.rotation.x = -Math.PI / 2;
-        scene.add(mapPlane);
+  const colombia = locations.find((l) => l.city === "Colombia")!;
 
-        // Placeholder for location pins. A developer can map these to actual coordinates on the model.
-        locations.forEach(() => {
-            const pinGeometry = new THREE.ConeGeometry(0.04, 0.15, 8);
-            const pinMaterial = new THREE.MeshStandardMaterial({ color: 0xffb200, emissive: 0xffb200, emissiveIntensity: 0.5 });
-            const pin = new THREE.Mesh(pinGeometry, pinMaterial);
-            pin.position.set((Math.random() - 0.5) * 2, 0.075, (Math.random() - 0.5) * 3);
-            pin.rotation.x = Math.PI / 2;
-            scene.add(pin);
-        });
-    
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(2, 5, 3);
-        scene.add(directionalLight);
-    
-        const clock = new THREE.Clock();
-        const animate = () => {
-          requestAnimationFrame(animate);
-          scene.rotation.y = Math.sin(clock.getElapsedTime() * 0.1) * 0.2;
-          renderer.render(scene, camera);
-        };
-        animate();
-    
-        const handleResize = () => {
-            if (currentMount) {
-                camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-    
-        return () => {
-          window.removeEventListener('resize', handleResize);
-          if (currentMount) {
-            currentMount.removeChild(renderer.domElement);
-          }
-        };
-      }, []);
+  useEffect(() => {
+    setShowSedeMobile(false);
+  }, [selectedCity]);
 
-      return (
-        <section id="coverage" className="py-20 sm:py-32 bg-card">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold tracking-tight text-primary">Cobertura Nacional</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                Estamos donde nos necesitas. Conoce nuestras sedes y contáctanos.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-              {/* Mapa 3D */}
-              {/* <div
-                className="
-                  w-full 
-                  aspect-[4/5] 
-                  max-h-[280px] 
-                  md:max-h-[420px] 
-                  rounded-lg border 
-                  bg-background p-2
-                  mx-auto
-                "
-                ref={mountRef}
-              /> */}
-              <div style={{ width: "100%", height: "450px" }}>
-                <iframe
-                  src={selectedCity.srcMap}
-                  width="600"
-                  height="450"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-              {/* Selector ciudades */}
-              <div className="flex flex-col gap-4 w-full mt-4 lg:mt-0">
-                <Card className="bg-background border-accent/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-accent">
-                      <MapPin /> {selectedCity.city}
-                    </CardTitle>
-                    <CardDescription>Información de contacto</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <a
-                      href={`tel:${selectedCity.phone}`}
-                      className="flex items-center gap-2 text-lg hover:underline"
-                    >
-                      <Phone className="h-5 w-5" />
-                      <span>{selectedCity.phone}</span>
-                    </a>
-                  </CardContent>
-                </Card>
-                <Card className="bg-background">
-                  <CardContent className="p-2">
-                    <div className="max-h-[260px] overflow-y-auto space-y-1 pr-2 overflow-x-hidden">
-                      {locations.map((loc) => (
-                        <button
-                          key={loc.city}
-                          onClick={() => setSelectedCity(loc)}
-                          className={`
-                            w-full text-left p-3 rounded-md transition-colors text-sm font-medium 
-                            ${selectedCity.city === loc.city
-                              ? 'bg-primary/90 text-primary-foreground'
-                              : 'hover:bg-muted'}
-                          `}
-                        >
-                          {loc.city}
-                        </button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              <div style={{ width: "100%", height: "450px" }}>
-                <iframe
-                  src={selectedCity.srcStreetView}
-                  width="600"
-                  height="450"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </div>
+  const gridCols =
+    selectedCity === null
+      ? "grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
+      : "grid grid-cols-1 lg:grid-cols-3 gap-8 items-start";
+
+  const handleSelect = useCallback((loc: City) => {
+    if (loc.city === "Colombia" || selectedCity?.city === loc.city) {
+      setSelectedCity(null);
+    } else {
+      setSelectedCity(loc);
+    }
+  }, [selectedCity]);
+
+  return (
+    <section id="coverage" className="py-20 sm:py-32 bg-card">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold tracking-tight text-primary">Cobertura Nacional</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+            Estamos donde nos necesitas. Conoce nuestras sedes y contáctanos.
+          </p>
+        </div>
+
+        <div className={gridCols}>
+          <div className="w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
+            <iframe
+              key={selectedCity ? selectedCity.city + '-map' : 'colombia-map'}
+              src={(selectedCity ?? colombia).srcMap}
+              width="100%"
+              height="100%"
+              className="border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
-        </section>
-      );
-      
+
+          <div className="flex flex-col gap-4 w-full">
+            <Card className="bg-background border-accent/20 shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-accent">
+                  <MapPin />
+                  {selectedCity ? selectedCity.city : "Selecciona una ciudad"}
+                </CardTitle>
+                <CardDescription>
+                  {selectedCity ? "Información de contacto" : "Elige una ciudad para ver la sede y teléfono"}
+                </CardDescription>
+              </CardHeader>
+              {selectedCity && (
+                <CardContent>
+                  <a href={`tel:${selectedCity.phone}`} className="flex items-center gap-2 text-lg hover:underline text-foreground">
+                    <Phone className="h-5 w-5" />
+                    <span>{selectedCity.phone}</span>
+                  </a>
+                </CardContent>
+              )}
+            </Card>
+
+            <Card className="bg-background">
+              <CardContent className="p-2">
+                <div className="max-h-[260px] overflow-y-auto space-y-1 pr-2">
+                  {locations.map((loc) => {
+                    const isActive = selectedCity?.city === loc.city;
+                    return (
+                      <button
+                        key={loc.city}
+                        onClick={() => handleSelect(loc)}
+                        className={`w-full text-left p-3 rounded-md transition-colors text-sm font-medium ${
+                          isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                        }`}
+                      >
+                        {loc.city}
+                      </button>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {selectedCity && (
+              <div className="lg:hidden">
+                <Button
+                  className="w-full"
+                  onClick={() => setShowSedeMobile((v) => !v)}
+                  aria-expanded={showSedeMobile}
+                >
+                  {showSedeMobile ? "Ocultar sede" : "Visualizar sede"}
+                </Button>
+              </div>
+            )}
+          </div>
+          
+          {selectedCity && (
+            <div className="hidden lg:block w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
+              <iframe
+                key={selectedCity.city + '-streetview'}
+                src={selectedCity.srcStreetView || selectedCity.srcMap}
+                width="100%"
+                height="100%"
+                className="border-0"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          )}
+        </div>
+
+        {showSedeMobile && selectedCity && (
+            <div className="mt-4 lg:hidden w-full h-[450px] rounded-xl overflow-hidden shadow-lg">
+                <iframe
+                    key={selectedCity.city + '-streetview-mobile'}
+                    src={selectedCity.srcStreetView || selectedCity.srcMap}
+                    width="100%"
+                    height="100%"
+                    className="border-0"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
+            </div>
+        )}
+      </div>
+    </section>
+  );
 }
+
+    
