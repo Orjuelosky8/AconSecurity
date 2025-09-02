@@ -142,9 +142,9 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
 
       {selectedService && (
         <AlertDialog open={!!selectedService} onOpenChange={onCloseModal}>
-          <AlertDialogContent className="w-full max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]">
+           <AlertDialogContent className="w-[95vw] sm:w-full max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]">
             <AlertDialogHeader className="p-4 sm:p-6 pb-4 border-b sticky top-0 bg-card z-10">
-              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary">{selectedService.title}</AlertDialogTitle>
+              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary pr-8">{selectedService.title}</AlertDialogTitle>
               <Button variant="destructive" size="icon" onClick={onCloseModal} className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full w-8 h-8 p-0">
                 <X className="h-4 w-4" />
                 <span className="sr-only">Cerrar</span>
@@ -202,7 +202,6 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
             </Carousel>
 
-
             <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
               <Button
                 variant="outline"
@@ -219,5 +218,3 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
     </>
   );
 }
-
-    
