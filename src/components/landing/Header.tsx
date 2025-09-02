@@ -85,6 +85,16 @@ export default function Header({ onAssistantClick }: HeaderProps) {
             <span className="hidden lg:inline">Asistente Virtual</span>
           </Button>
 
+          {/* Asistente Virtual Mobile */}
+          <Button
+            onClick={onAssistantClick}
+            variant="ghost"
+            size="icon"
+            className="md:hidden hover:bg-primary/5"
+          >
+            <MessageSquareHeart className="h-6 w-6 text-primary" />
+            <span className="sr-only">Asistente Virtual</span>
+          </Button>
 
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
