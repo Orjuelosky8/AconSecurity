@@ -5,20 +5,16 @@ import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import img1 from './../media/certificaciones/Logo-ISO.svg';
-import img2 from './../media/certificaciones/bloque2564.png';
-import img3 from './../media/certificaciones/icontec.png';
-import img4 from './../media/certificaciones/logoBASC.png';
-import img5 from './../media/certificaciones/ohsas-18001-logo.png';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const certifications = [
-  { name: 'Certificación ISO 9001', logoUrl: img1, dataAiHint: 'certificate badge' },
-  { name: 'Certificación OHSAS 18001', logoUrl: img2, dataAiHint: 'award seal' },
-  { name: 'Certificación BASC', logoUrl: img3, dataAiHint: 'certification logo' },
-  { name: 'Sello de Calidad', logoUrl: img4, dataAiHint: 'quality seal' },
-  { name: 'Certificación Ambiental', logoUrl: img5, dataAiHint: 'eco certificate' },
+  { name: 'Certificación ISO 9001', logoUrl: '/images/certificates/basc.png', dataAiHint: 'certificate badge' },
+  { name: 'Certificación OHSAS 18001', logoUrl: '/images/certificates/BV_Iso14001-45001.png', dataAiHint: 'award seal' },
+  { name: 'Certificación BASC', logoUrl: '/images/certificates/iqnet.png', dataAiHint: 'certification logo' },
+  { name: 'Sello de Calidad', logoUrl: '/images/certificates/iso_9001.png', dataAiHint: 'quality seal' },
+  { name: 'Certificación Ambiental', logoUrl: '/images/certificates/iso_18788.png', dataAiHint: 'eco certificate' },
   // { name: 'SuperVigilancia', logoUrl: 'https://placehold.co/180x120.png', dataAiHint: 'government seal' },
   // { name: 'ICONTEC', logoUrl: 'https://placehold.co/180x120.png', dataAiHint: 'standardization logo' },
   // { name: 'SGS', logoUrl: 'https://placehold.co/180x120.png', dataAiHint: 'inspection certification' },

@@ -141,24 +141,47 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
       </section>
 
       {selectedService && (
-        <AlertDialog open={!!selectedService} onOpenChange={onCloseModal}>
-           <AlertDialogContent className="w-[95vw] sm:w-full max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]">
+        <AlertDialog open={!!selectedService} onOpenChange={(open) => { if (!open) onCloseModal(); }}>
+          <AlertDialogContent
+            className="
+        w-[calc(100vw-1.5rem)] sm:w-full 
+        max-w-2xl 
+        bg-card border-border shadow-2xl rounded-2xl 
+        p-0 
+        flex flex-col 
+        /* Altura explícita para móviles y desktop */
+        h-[90dvh] sm:h-[85dvh] 
+        /* Permite que hijos flex se encojan y no desborden */
+        min-h-0
+      "
+          >
             <AlertDialogHeader className="p-4 sm:p-6 pb-4 border-b sticky top-0 bg-card z-10">
-              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary pr-8">{selectedService.title}</AlertDialogTitle>
-              <Button variant="destructive" size="icon" onClick={onCloseModal} className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full w-8 h-8 p-0">
+              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary pr-10">
+                {selectedService.title}
+              </AlertDialogTitle>
+              <Button
+                variant="destructive"
+                size="icon"
+                onClick={onCloseModal}
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full w-8 h-8 p-0"
+              >
                 <X className="h-4 w-4" />
                 <span className="sr-only">Cerrar</span>
               </Button>
             </AlertDialogHeader>
 
+            {/* ✅ El carrusel ocupa el espacio restante del modal */}
             <Carousel
-              className="w-full flex-1 relative"
+              className="w-full flex-1 relative min-h-0"
               plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
               opts={{ loop: true }}
             >
-              <CarouselContent className="h-full">
-                <CarouselItem className="flex flex-col">
-                  <ScrollArea className="flex-1">
+              {/* ✅ El contenido del carrusel hereda la altura disponible */}
+              <CarouselContent className="h-full min-h-0">
+                {/* ✅ Cada slide es una columna flexible que puede contraerse */}
+                <CarouselItem className="flex flex-col min-h-0">
+                  {/* ✅ ScrollArea con altura real */}
+                  <ScrollArea className="h-full">
                     <div className="p-4 sm:p-6 space-y-6">
                       <AlertDialogDescription className="text-base text-muted-foreground">
                         {selectedService.longDescription}
@@ -169,13 +192,16 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
                           <ThumbsUp className="h-5 w-5" />
                           Destacado
                         </h3>
-                        <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">"{selectedService.highlight}"</p>
+                        <p className="text-muted-foreground bg-muted p-4 rounded-lg border border-border/50 italic">
+                          "{selectedService.highlight}"
+                        </p>
                       </div>
                     </div>
                   </ScrollArea>
                 </CarouselItem>
-                <CarouselItem className="flex flex-col">
-                  <ScrollArea className="flex-1">
+
+                <CarouselItem className="flex flex-col min-h-0">
+                  <ScrollArea className="h-full">
                     <div className="p-4 sm:p-6">
                       <h3 className="text-lg sm:text-xl font-semibold text-accent mb-4 flex items-center gap-2">
                         <Star className="h-5 w-5" />
@@ -198,23 +224,17 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
                   </ScrollArea>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
-              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
             </Carousel>
 
             <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
-              <Button
-                variant="outline"
-                onClick={onCloseModal}
-                className="w-full sm:w-auto"
-              >
+              <Button variant="outline" onClick={onCloseModal} className="w-full sm:w-auto">
                 Cerrar
               </Button>
             </AlertDialogFooter>
-
           </AlertDialogContent>
         </AlertDialog>
       )}
+
     </>
   );
 }

@@ -23,7 +23,7 @@ const autoplay = Autoplay({ delay: 4000, stopOnInteraction: false });
 const slides = [
   {
     image: img1,
-    title: 'Servimos por Vocación: Seguridad y Confianza desde 1996',
+    title: 'Servimos con Vocación: Seguridad y Confianza desde 1996',
     description: 'Décadas de experiencia protegiendo hogares, empresas y conjuntos residenciales en toda Colombia.',
     ctaText: 'Conoce más',
     ctaLink: '#about',
