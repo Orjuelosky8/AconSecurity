@@ -1,6 +1,5 @@
 "use client";
 
-import './../styles/carrusel.css';
 import Image from 'next/image';
 
 import img1 from './../media/hero1.jpg';
@@ -73,17 +72,17 @@ export default function Hero() {
                   className="object-cover"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-10" />
                 <div className="absolute inset-0 flex items-center z-20">
                   <div className="container mx-auto px-4">
-                    <div className="max-w-md ml-[50px] mt-[-100px]">
-                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-shadow-lg leading-tight">
+                    <div className="max-w-xl ml-0 md:ml-[50px] mt-[-100px]">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-shadow-lg leading-tight">
                         {slide.title}
                       </h1>
                       <p className="mt-4 max-w-xl text-lg text-foreground/80">
                         {slide.description}
                       </p>
-                      <Button asChild size="lg" className="mt-8 color3">
+                      <Button asChild size="lg" className="mt-8">
                         <a href={slide.ctaLink}>{slide.ctaText}</a>
                       </Button>
                     </div>

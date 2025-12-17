@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -14,7 +13,6 @@ import SocialResponsibility from '@/components/landing/SocialResponsibility';
 import Footer from '@/components/landing/Footer';
 import SolutionForm from '@/components/landing/SolutionForm';
 import Chatbot from '@/components/landing/Chatbot';
-import type { SolutionAssistantInput as SolutionAssistantInitialData } from '@/ai/flows/solution-assistant-flow';
 
 // We create a more specific type for the form data
 type FormSubmitData = {
@@ -28,7 +26,7 @@ export default function HomePage() {
   const [chatInitialData, setChatInitialData] = useState<FormSubmitData | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  const handleFormSubmit = (data: FormSubmitData) => {
+  const handleFormSubmit = (data: FormSubmit_Data) => {
     setChatInitialData(data);
     setIsChatOpen(true);
   };
@@ -42,6 +40,8 @@ export default function HomePage() {
     const service = services.find(s => s.title === serviceTitle);
     if (service) {
       setSelectedService(service);
+      // If the chat is open, we can close it to show the modal clearly
+      // setIsChatOpen(false); 
     }
   };
 

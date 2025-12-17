@@ -4,7 +4,6 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Building, Home, Shield, ShieldCheck, Users, Search, Lock, Truck, ShieldQuestion, Building2 } from 'lucide-react';
@@ -60,7 +59,7 @@ export default function SolutionForm({ onSubmit }: SolutionFormProps) {
 
   return (
     <section id="assistant-form" className="absolute top-[80%] left-1/2 -translate-x-1/2 w-full max-w-4xl z-20 px-4">
-      <div className="border-accent/30 bg-card shadow-2xl shadow-accent/10 rounded-2xl z-20 relative">
+      <div className="border-border bg-card shadow-2xl rounded-2xl z-20 relative">
         <div className="text-center p-6 sm:p-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-accent">Encuentra tu Solución de Seguridad Ideal</h2>
           <p className="text-md sm:text-lg text-muted-foreground pt-2 max-w-2xl mx-auto">
@@ -167,18 +166,15 @@ export default function SolutionForm({ onSubmit }: SolutionFormProps) {
 
             </div>
             <div className="flex justify-center">
-              <button
+              <Button
                 type="submit"
                 disabled={isPending || !isValid}
-                className={`
-                color2 w-full max-w-xs bg-accent text-accent-foreground font-bold rounded-lg text-lg py-3
-                transition-all duration-200 shadow-lg
-                hover:bg-accent/90
-                ${(!isValid || isPending) ? 'opacity-50 cursor-not-allowed' : ''}
-              `}
+                className="w-full max-w-xs text-lg py-3 h-auto"
+                size="lg"
+                variant="default"
               >
                 {isPending ? "Cargando..." : "Obtener recomendación"}
-              </button>
+              </Button>
 
             </div>
           </form>

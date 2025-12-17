@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, Star, ThumbsUp, X } from 'lucide-react';
 import img1 from './../media/necesidades1.jpg';
@@ -120,13 +119,12 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
                     className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                     data-ai-hint={service.dataAiHint}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-primary/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                   <div className="absolute inset-0 p-6 flex flex-col justify-end">
                     <h3 className="text-2xl md:text-3xl font-bold text-white text-shadow-lg">
                       {service.title}
                     </h3>
-                    <div className="mt-4 transition-all duration-500 ease-in-out transform opacity-0 group-hover:opacity-100">
+                    <div className="h-0 opacity-0 group-hover:h-auto group-hover:mt-4 group-hover:opacity-100 transition-all duration-300 ease-in-out">
                       <p className="text-primary-foreground/90">{service.shortDescription}</p>
                       <div className="mt-4 flex items-center font-semibold text-accent">
                         Conoce más <ArrowRight className="ml-2 h-4 w-4" />
@@ -142,21 +140,9 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
 
       {selectedService && (
         <AlertDialog open={!!selectedService} onOpenChange={(open) => { if (!open) onCloseModal(); }}>
-          <AlertDialogContent
-            className="
-        w-[calc(100vw-1.5rem)] sm:w-full 
-        max-w-2xl 
-        bg-card border-border shadow-2xl rounded-2xl 
-        p-0 
-        flex flex-col 
-        /* Altura explícita para móviles y desktop */
-        h-[90dvh] sm:h-[85dvh] 
-        /* Permite que hijos flex se encojan y no desborden */
-        min-h-0
-      "
-          >
+          <AlertDialogContent className="w-[95vw] sm:w-full max-w-2xl bg-card border-border shadow-2xl rounded-2xl p-0 flex flex-col h-auto max-h-[85vh] sm:max-h-[85vh]">
             <AlertDialogHeader className="p-4 sm:p-6 pb-4 border-b sticky top-0 bg-card z-10">
-              <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-primary pr-10">
+              <AlertDialogTitle className="text-xl sm:text-2xl font-bold text-primary pr-10">
                 {selectedService.title}
               </AlertDialogTitle>
               <Button
@@ -170,18 +156,14 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
               </Button>
             </AlertDialogHeader>
 
-            {/* ✅ El carrusel ocupa el espacio restante del modal */}
             <Carousel
               className="w-full flex-1 relative min-h-0"
               plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
               opts={{ loop: true }}
             >
-              {/* ✅ El contenido del carrusel hereda la altura disponible */}
               <CarouselContent className="h-full min-h-0">
-                {/* ✅ Cada slide es una columna flexible que puede contraerse */}
                 <CarouselItem className="flex flex-col min-h-0">
-                  {/* ✅ ScrollArea con altura real */}
-                  <ScrollArea className="h-full">
+                  <ScrollArea className="h-full w-full">
                     <div className="p-4 sm:p-6 space-y-6">
                       <AlertDialogDescription className="text-base text-muted-foreground">
                         {selectedService.longDescription}
@@ -224,6 +206,8 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
                   </ScrollArea>
                 </CarouselItem>
               </CarouselContent>
+              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
             </Carousel>
 
             <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10">
@@ -234,7 +218,6 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
           </AlertDialogContent>
         </AlertDialog>
       )}
-
     </>
   );
 }
