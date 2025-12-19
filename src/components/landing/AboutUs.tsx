@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
@@ -70,7 +71,7 @@ export default function AboutUs() {
                 className="relative pl-16 pb-12"
               >
                 <div className="absolute left-0 top-0 -translate-x-1/2">
-                  <div className="flex items-center justify-center w-12 h-12 color3 rounded-full ring-8 ring-card text-primary-foreground">
+                  <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-full ring-8 ring-card text-primary-foreground">
                     <item.icon className="h-6 w-6" />
                   </div>
                 </div>

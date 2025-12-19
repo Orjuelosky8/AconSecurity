@@ -45,13 +45,13 @@ export default function ClientLogos() {
                 href={client.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative w-full h-full bg-primary rounded-lg"
+                className="relative w-full h-full"
               >
                 <Image
                   src={client.logoUrl}
                   alt={`Logo de ${client.name}`}
                   fill
-                  className="object-contain p-4 grayscale group-hover:grayscale-0 group-hover:mix-blend-luminosity transition-all duration-300"
+                  className="object-contain p-4 grayscale group-hover:grayscale-0 transition-all duration-300"
                   data-ai-hint={client.dataAiHint}
                 />
               </a>
