@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -121,6 +120,7 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
                     data-ai-hint={service.dataAiHint}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-primary/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="absolute inset-0 p-6 flex flex-col justify-end">
                     <h3 className="text-2xl md:text-3xl font-bold text-white text-shadow-lg">
                       {service.title}
@@ -211,7 +211,7 @@ export default function Portfolio({ onServiceSelect, selectedService, onCloseMod
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
             </Carousel>
 
-            <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10 flex-shrink-0">
+            <AlertDialogFooter className="p-4 sm:p-6 pt-4 border-t sticky bottom-0 bg-card z-10 flex-shrink-0 flex-row justify-end">
                <Button variant="outline" onClick={onCloseModal} className="w-full sm:w-auto">
                 Cerrar
               </Button>

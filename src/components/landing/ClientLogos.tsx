@@ -39,19 +39,19 @@ export default function ClientLogos() {
           {duplicatedClients.map((client, index) => (
             <div
               key={index}
-              className="flex-shrink-0 mx-4 w-40 h-24 flex justify-center items-center"
+              className="flex-shrink-0 mx-4 w-40 h-24 flex justify-center items-center group"
             >
               <a
                 href={client.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative w-full h-full"
+                className="relative w-full h-full bg-primary rounded-lg"
               >
                 <Image
                   src={client.logoUrl}
                   alt={`Logo de ${client.name}`}
                   fill
-                  className="object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  className="object-contain p-4 grayscale group-hover:grayscale-0 group-hover:mix-blend-luminosity transition-all duration-300"
                   data-ai-hint={client.dataAiHint}
                 />
               </a>
