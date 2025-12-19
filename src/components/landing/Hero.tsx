@@ -3,11 +3,6 @@
 
 import Image from 'next/image';
 
-import img1 from './../media/hero1.jpg';
-import img2 from './../media/mapprovisional.jpg';
-import img3 from './../media/hero3.jpg';
-import img4 from './../media/hero4.jpg';
-
 import {
   Carousel,
   CarouselContent,
@@ -22,28 +17,28 @@ const autoplay = Autoplay({ delay: 4000, stopOnInteraction: false });
 
 const slides = [
   {
-    image: img1,
+    image: '/images/carrousel/Acon1.png',
     title: 'Servimos con Vocación: Seguridad y Confianza desde 1996',
     description: 'Décadas de experiencia protegiendo hogares, empresas y conjuntos residenciales en toda Colombia.',
     ctaText: 'Conoce más',
     ctaLink: '#about',
   },
   {
-    image: img2,
+    image: '/images/carrousel/Acon2.png',
     title: 'Cobertura Nacional, Respaldo Local',
     description: 'Con presencia en las principales ciudades, estamos siempre cerca para brindarte la protección que necesitas.',
     ctaText: 'Nuestras sedes',
     ctaLink: '#coverage',
   },
   {
-    image: img3,
+    image: '/images/carrousel/Acon3.png',
     title: 'Tecnología de Vanguardia para tu Protección',
     description: 'Integramos CCTV, alarmas inteligentes y control de acceso para una seguridad proactiva y eficiente.',
     ctaText: 'Ver tecnología',
     ctaLink: '#tech',
   },
   {
-    image: img4,
+    image: '/images/carrousel/Acon4.png',
     title: 'Seguridad Integral a tu Alcance',
     description: 'Desde vigilancia física hasta monitoreo 24/7, ofrecemos soluciones a la medida de tus necesidades.',
     ctaText: 'Ver Servicios',
